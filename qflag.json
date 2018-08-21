@@ -1,0 +1,58 @@
+[
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478941851160674304/1200px-Flag_of_Saudi_Arabia.svg.png",
+        "answers": ["السعودية", "السعوديه"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478940420131389440/MORC001.jpg",
+        "answers": ["المغرب"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478940420131389441/1212.png",
+        "answers": ["الامارات", "امارات"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478940420580048907/ALGE001.jpg",
+        "answers": ["الجزائر"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478940421167513601/images_1.png",
+        "answers": ["تونس"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478940421167513603/images.png",
+        "answers": ["الكويت"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478942381316636673/280px-Flag_of_Bahrain.svg.png",
+        "answers": ["البحرين"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478942593049427978/2000px-Flag_of_Iraq.svg.png",
+        "answers": ["العراق"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478942922499293192/2000px-Flag_of_Lebanon.svg.png",
+        "answers": ["لبنان"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478942932121157632/2000px-Flag_of_Syria.svg.png",
+        "answers": ["سوريا"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478943279237562368/2000px-Flag_of_Egypt.svg.png",
+        "answers": ["مصر"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478943291962949653/2000px-Flag_of_Libya.svg.png",
+        "answers": ["ليبيا"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478945693973610497/280px-Flag_of_Palestine.svg.png",
+        "answers": ["فلسطين"]
+    },
+    {
+        "type": "https://cdn.discordapp.com/attachments/449660763188232194/478945707491852290/Flag_of_Sudan.svg.png",
+        "answers": ["سودان", "السودان"]
+    }
+]
