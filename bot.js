@@ -62,16 +62,16 @@ client.on('ready', () => {
 });
 
 client.on('message', message => {
-	var prefix = '&';
 	var args = message.content.split(' ');
 	var args1 = message.content.split(' ').slice(1).join(' ');
 	var args2 = message.content.split(' ')[2];
 	var args3 = message.content.split(' ').slice(3).join(' ');
 	var command = message.content.toLowerCase().split(" ")[0];
-	let games = JSON.parse(fs.readFileSync('./games.json', 'utf8'));
+	var games = JSON.parse(fs.readFileSync('./games.json', 'utf8'));
 	var muf = message.mentions.users.first();
+	
 	if(message.author.bot) return;
-	if(!message.guildt) return;
+	if(!message.guild.channel) return;
 	
 // كود تغيير الاسم والافتار وحالة اللعب
 	if(command == prefix + 'setname') {
