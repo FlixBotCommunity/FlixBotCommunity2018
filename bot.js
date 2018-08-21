@@ -1670,7 +1670,6 @@ client.on('message', message => {
 client.on('message', async message => {
 	if (message.author.bot) return;
 	if (!message.channel.guild) return;
-	if(message.member.hasPermission('ADMINISTRATOR')) return message.reply('**اوامر الموسيقى لهذا البوت خاص للادارة فقط**');
 	if(message.channel.id !== '443427762930450436' || '446087494388416522' || '458667094956048395') return message.reply('');
 
 	let messageContent = message.content.split(" ");
