@@ -68,7 +68,7 @@ client.on('message', message => {
 	var args2 = message.content.split(' ')[2];
 	var args3 = message.content.split(' ').slice(3).join(' ');
 	var command = message.content.toLowerCase().split(" ")[0];
-	let games = JSON.parse(fs.readFileSync('./games/games.json', 'utf8'));
+	let games = JSON.parse(fs.readFileSync('./games.json', 'utf8'));
 	var muf = message.mentions.users.first();
 	if(message.author.bot) return;
 	if(!message.guild) return;
@@ -938,7 +938,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 	};
 	
 	if(command == prefix + 'لغز') {
-		let type = require('./games/qlaz.json');
+		let type = require('./qlaz.json');
 		let item = type[Math.floor(Math.random() * type.length)];
 		let filter = response => {
 		return item.answers.some(answer => answer.toLowerCase() === response.content.toLowerCase());
@@ -980,7 +980,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		})
 	}
 	if(command == prefix + 'فكك') {
-		let type = require('./games/qfkk.json');
+		let type = require('./qfkk.json');
 		let item = type[Math.floor(Math.random() * type.length)];
 		let filter = response => {
 		return item.answers.some(answer => answer.toLowerCase() === response.content.toLowerCase());
@@ -1022,7 +1022,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		})
 	}
 	if(command == prefix + 'اسرع-كتابة') {
-		let type = require('./games/qfast.json');
+		let type = require('./qfast.json');
 		let item = type[Math.floor(Math.random() * type.length)];
 		let filter = response => {
 		return item.answers.some(answer => answer.toLowerCase() === response.content.toLowerCase());
@@ -1064,7 +1064,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		})
 	}
 	if(command == prefix + 'ايموجي') {
-		let type = require('./games/qemoji.json');
+		let type = require('./qemoji.json');
 		let item = type[Math.floor(Math.random() * type.length)];
 		let filter = response => {
 		return item.answers.some(answer => answer.toLowerCase() === response.content.toLowerCase());
@@ -1107,7 +1107,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		})
 	}
 	if(command == prefix + 'علم') {
-		let type = require('./games/qflag.json');
+		let type = require('./qflag.json');
 		let item = type[Math.floor(Math.random() * type.length)];
 		let filter = response => {
 		return item.answers.some(answer => answer.toLowerCase() === response.content.toLowerCase());
@@ -1150,7 +1150,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		})
 	}
 	if(command == prefix + 'رياضيات') {
-		let type = require('./games/qmath.json');
+		let type = require('./qmath.json');
 		let item = type[Math.floor(Math.random() * type.length)];
 		let filter = response => {
 		return item.answers.some(answer => answer.toLowerCase() === response.content.toLowerCase());
@@ -1248,7 +1248,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		
 		message.channel.send(pointsPlayer);
 		
-		fs.writeFile("./games/games.json", JSON.stringify(games), (err) => {
+		fs.writeFile("./games.json", JSON.stringify(games), (err) => {
 			if(err) console.error(err)
 		});
 	};
