@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();ف
+const client = new Discord.Client();
 const prefix = '&';
 const axios = require('axios');
 const fs = require('fs');
@@ -71,7 +71,7 @@ client.on('message', message => {
 	let games = JSON.parse(fs.readFileSync('./games.json', 'utf8'));
 	var muf = message.mentions.users.first();
 	if(message.author.bot) return;
-	if(!message.guild) return;
+	if(!message.guildt) return;
 	
 // كود تغيير الاسم والافتار وحالة اللعب
 	if(command == prefix + 'setname') {
