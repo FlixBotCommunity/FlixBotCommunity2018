@@ -1569,108 +1569,12 @@ client.on('voiceStateUpdate', (voiceOld, voiceNew) => {
 		});
 });
 
-client.on('message', message => {
-	var prefix = '!';
-	var args = message.content.split(" ");
-	var command = message.content.toLowerCase().split(" ")[0];
-	var muf = message.mentions.users.first();
-	var muteRole = message.guild.roles.find('name', 'Muted');
-	var reason = message.content.split(" ").slice(2).join(" ");
-	
-	if(command == prefix + 'mute') {
-		if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply('\`\`MANAGE_ROLES\`\` **انت لا تمتلك صلاحية**');
-		if(!muf) return message.channel.send(`**➥ Useage:** ${prefix}mute \`\`@Name\`\` reason`).then(m => m.delete(5000));
-		if(muf.roles.has(muteRole)) return message.reply('**This Player Is Not Muted!**');
-		if(muf.id === message.author.id) return message.reply('**You Cant Give Your Self Mute!**');
-		if(muf.id === client.user.id) return messge.reply('**Why You Want Give Me Mute? :cry:**');
-		if(muf.hasPermission('ADMINISTRATOR')) return message.reply('**This Player Have Permission \`\`ADMINISTRATOR\`\`**');
-		if(!reason) return message.channel.send(`**➥ Useage:** ${prefix}mute @name \`\`Reason\`\``).then(m => m.delete(5000));
-		
-		if(!muteRole) try {
-			message.guild.createRole({
-				name: "Muted",
-				permissions: 0
-				}).then(r => {
-					message.guild.channels.forEach(c => {
-						c.overwritePermissions(r , {
-							SEND_MESSAGES: false,
-							ADD_REACTIONS: false
-						});
-					});
-				});
-		} catch(e) {
-			console.log(e.stack);
-		}
-		
-		muf.addRole(muteRole);
-		muf.setMute(true);
-		
-		muf.send(`You Have Muted By **${message.author.tag}** In Server **${message.guild.name}** Reason **${reason}**`);
-		message.channel.send(`:white_check_mark: <@${muf.id}> Successfully **Muted!** :zipper_mouth:`);
-		
-		let muteEmbed = new Discord.RichEmbed()
-		.setTitle('**[MUTE]**')
-		.setThumbnail(client.user.avatarURL)
-		.setColor('RANDOM')
-		.addField('User', `<@${muf.id}>`)
-		.addField('By', `<@${message.author.id}>`)
-		.addField('Reason', reason)
-		.addField('Time', message.author.createdAt)
-		.setTimestamp()
-		.setFooter(message.author.tag, message.author.avatarURL)
-		
-		let logChannel = message.guild.channels.find('name', 'log');
-		if(!logChannel) return message.reply('**I Couldnt find log channel!**');
-		
-		logChannel.send(muteEmbed);
-	}
-	if(command == prefix + 'unmute') {
-		if(!message.member.hasPermission('MANAGE_ROLES')) return message.reply('\`\`MANAGE_ROLES\`\` **انت لا تمتلك صلاحية**');
-		if(!muf) return message.channel.send(`**➥ Useage:** ${prefix}unmute \`\`@Name\`\` reason`).then(m => m.delete(5000));
-		if(!muf.roles.has(muteRole)) return message.reply('**This Player Is Not Muted!**');
-		if(!reason) return message.channel.send(`**➥ Useage:** ${prefix}unmute @name \`\`Reason\`\``).then(m => m.delete(5000));
-		
-		muf.removeRole('name', 'Muted');
-		muf.setMute(false);
-		
-		muf.send(`You Have UnMuted By **${message.author.tag}** In Server **${message.guild.name}** Reason **${reason}**`);
-		message.channel.send(`:white_check_mark: <@${muf.id}> Successfully **UnMuted!** :grinning:`);
-		
-		let unMuteEmbed = new Discord.RichEmbed()
-		.setTitle('**[UNMUTE]**')
-		.setThumbnail(client.user.avatarURL)
-		.setColor('RANDOM')
-		.addField('User', `<@${muf.id}>`)
-		.addField('By', `<@${message.author.id}>`)
-		.addField('Reason', reason)
-		.addField('Time', message.author.createdAt)
-		.setTimestamp()
-		.setFooter(message.author.tag, message.author.avatarURL)
-		
-		let logChannel = message.guild.channels.find('name', 'log');
-		if(!logChannel) return message.reply('**I Couldn\'t find log channel!**');
-		
-		logChannel.send(unMuteEmbed);
-	}
-});
 
-client.on('message', message => {
-    if (message.content === prefix + "SettingsDj") {
-    if (!devs.includes(message.author.id)) return;
-    if(!message.channel.guild) return message.channel.send('**هذا الامـر للسيرفرات فقط ## !**')
-            if (!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(`**${message.author.username} You Dont Have** ``MANAGE_ROLES`` **Premission**`);
-                     message.guild.createRole({ name: "Dj", color: "150432", permissions: [335019120] })
-					message.channel.send({embed: {
-                    color: 3447003,
-                    description: ":no_entry: || **__جاري ظبط اعدادات``Dj``__**"
-                    }});
-	}
-});
 
+// الموسيقى
 client.on('message', async message => {
 	if (message.author.bot) return;
 	if (!message.channel.guild) return;
-	if(message.channel.id !== '443427762930450436' || '446087494388416522' || '458667094956048395') return message.reply('');
 
 	let messageContent = message.content.split(" ");
 	let command = messageContent[0];
@@ -1680,13 +1584,18 @@ client.on('message', async message => {
 	switch (command.slice(1).toLowerCase()) {
 
 		case "play":
-			if (args.length == 0 && queue.length > 0) {
-				if (!message.member.voiceChannel) {
-					message.reply("Erorr 😭 ");
-					message.channel.send({embed: {
-                    color: 3447003,
-                    description: ":no_entry: || **__يجب ان تكون في روم صوتي__**"
-                    }});
+			if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('**اوامر الموسيقى لهذا البوت خاصه للادارة فقط**');
+			if(args.length == 0 && queue.length > 0) {
+				if(!message.member.voiceChannel) {
+					let notVoiceChannel = new Discord.RichEmbed()
+					.setTitle(':name_badge: **Error**')
+					.setColor('GRAY')
+					.setThumbnail(client.user.avatarURL)
+					.setDescription('**\nلازم تكون بروم صوتي**')
+					.setTimestamp()
+					.setFooter(message.author.tag, message.author.avatarURL)
+					
+					message.channel.send(notVoiceChannel);
 				} else {
 					isPlaying = true;
 					playMusic(queue[0], message);
