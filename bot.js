@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client();ف
 const prefix = '&';
 const axios = require('axios');
 const fs = require('fs');
