@@ -1918,7 +1918,19 @@ client.on('message', async message => {
 
 function playMusic(id, message) {
 	voiceChannel = message.member.voiceChannel;
-
+	
+	if(!voiceChannel) {
+		let notVoiceChannel = new Discord.RichEmbed()
+		.setTitle(':name_badge: **Error**')
+		.setColor('GRAY')
+		.setThumbnail(client.user.avatarURL)
+		.setDescription('**\nلازم تكون بروم صوتي**')
+		.setTimestamp()
+		.setFooter(message.author.tag, message.author.avatarURL)
+		
+		message.channel.send(notVoiceChannel);
+		
+	}else {
 	voiceChannel.join()
 		.then(connection => {
 					message.channel.send({embed: {
@@ -1951,6 +1963,7 @@ function playMusic(id, message) {
 			});
 		})
 		.catch(error => console.log(error));
+	}
 }
 
 async function getID(str) {
