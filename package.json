@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ascii-data-table": "^2.1.1",
+    "axios": "^0.18.0",
     "canvas": "^1.6.10",
     "dateformat": "^3.0.3",
     "discord.js": "^11.3.2",
