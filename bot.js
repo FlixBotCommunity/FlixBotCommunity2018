@@ -2127,7 +2127,7 @@ client.on('message', message => {
 	if(!djRole) return;
 	var command = message.content.toLowerCase().split(" ")[0];
 	
-	if (command === prefix + 'help') {
+	if(command == prefix + 'help') {
 		let embed = new Discord.RichEmbed()
          .setColor("36393f")
          .setDescription(`**
