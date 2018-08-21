@@ -299,55 +299,6 @@ if(warns[wUser.id].warns == 2){
 		message.channel.send(warninfo1);
 		message.delete();
 	};
-	let warnsstaff = JSON.parse(fs.readFileSync("./warningsstaff.json", "utf8"));
-	if(command == prefix + 'warn-staff') {
-		if(!message.member.hasPermission('ADMINISTRATOR')) return message.reply('**\`\`ADMINISTRATOR\`\` **انت لا تمتلك صلاحية****').then(m => m.delete(5000));
-		let wStaff = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
-		let rStaff = args.slice(2).join(" ");
-		if(!wStaff) return message.channel.send(`**➥ Useage:** ${prefix}warn-staff \`\`@Name\`\` reason`).then(m => m.delete(5000));
-		if(wStaff.id === message.author.id) return message.reply('**لا يمكنك اعطاء نفسك وارن**').then(msg => msg.delete(5000));
-		if(!wStaff.hasPermission('MUTE_MEMBERS')) return message.reply('**هذا الامر فقط لاعطاء الستاف وارن**').then(m => m.delete(5000));
-		if(!rStaff) return message.channel.send(`**➥ Useage:** ${prefix}warn-staff @name \`\`Reason\`\``).then(m => m.delete(5000));
-		let Warn1 = message.guild.roles.find('name', '➥ ȡˍѭѠ۠ȡȦ᧩ || message.guild.roles.get(r => r.name === '? ȡˍѭѠ۠ȡȦ᧩;
-		let Warn2 = message.guild.roles.find('name', '➥ ȡˍѭѠ۠ȡ̇孧) || message.guild.roles.get(r => r.name === '? ȡˍѭѠ۠ȡ̇孧);
-		let Warn3 = message.guild.roles.find('name', '➥ ȡˍѭѠ۠ȡ̇⋧) || message.guild.roles.get(r => r.name === '? ȡˍѭѠ۠ȡ̇⋧);
-		let Mstb3d = message.guild.roles.find('name', '۠Prohibited from submission') || message.guild.roles.get(r => r.name === '۠Prohibited from submission');
-		if(!Warn1) try {
-			message.guild.createRole({
-				name: "? ȡˍѭѠ۠ȡȦ᢬
-				permissions: 0,
-				color: 'RED'
-						});
-						} catch(e) {
-							console.log(e.stack);
-						}
-		if(!Warn2) try {
-			message.guild.createRole({
-				name: "? ȡˍѭѠ۠ȡ̇孢,
-				permissions: 0,
-				color: 'RED'
-						});
-						} catch(e) {
-							console.log(e.stack);
-						}
-		if(!Warn3) try {
-			message.guild.createRole({
-				name: "? ȡˍѭѠ۠ȡ̇⋢,
-				permissions: 0,
-				color: 'RED'
-						});
-						} catch(e) {
-							console.log(e.stack);
-						}
-		if(!Mstb3d) try {
-			message.guild.createRole({
-				name: "۠Prohibited from submission",
-				permissions: 0
-						});
-						} catch(e) {
-							console.log(e.stack);
-						}
-	};
 
 
 
