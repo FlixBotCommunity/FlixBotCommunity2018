@@ -1596,7 +1596,7 @@ client.on('message', async message => {
 					.setFooter(message.author.tag, message.author.avatarURL)
 					
 					message.channel.send(notVoiceChannel);
-				} else {
+				}else {
 					isPlaying = true;
 					playMusic(queue[0], message);
 					let Playing = new Discord.RichEmbed()
@@ -2028,7 +2028,7 @@ function shuffle(queue) {
 
 client.on("message", message => {
 	var command = message.content.toLowerCase().split(" ")[0];
-   	let djRole = message.guild.member(message.author).roles.find('name', 'Dj');
+   	let djRole = message.author.roles.find('name', 'Dj');
         if(!djRole) return;
         if(command == prefix + 'help') {
      let embed = new Discord.RichEmbed()
@@ -2051,7 +2051,7 @@ ${prefix}help or ${prefix}commands ->  يعرض لك الاوامر البوت �
 
 
 client.on('message', message => {
-	let djRole = message.guild.member(message.author).roles.find('name', 'Dj');
+	let djRole = message.author.roles.find('name', 'Dj');
 	if(!djRole) return;
 	var command = message.content.toLowerCase().split(" ")[0];
 	
