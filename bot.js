@@ -1742,7 +1742,7 @@ client.on('message', async message => {
 				}});
 				}
 			} else if (args.length > 0 && args[0] == 'clear') {
-				        let kahrba = message.guild.member(message.author).roles.find('name', 'Dj');
+				        let djRole = message.guild.member(message.author).roles.find('name', 'Dj');
 				if (args.length == 1) {
 						message.reply(` `);
                              const embed = new Discord.RichEmbed()
@@ -1763,7 +1763,6 @@ client.on('message', async message => {
                      message.channel.send({embed});
 				}
 			} else if (args.length > 0 && args[0] == 'shuffle') {
-				        let kahrba = message.guild.member(message.author).roles.find('name', 'Dj');
 				let tempA = [songsQueue[0]];
 				let tempB = songsQueue.slice(1);
 				songsQueue = tempA.concat(shuffle(tempB));
@@ -1809,8 +1808,8 @@ client.on('message', async message => {
 			break;
 
 		case "stop":
-        let kahrba = message.guild.member(message.author).roles.find('name', 'Dj');
-                if(!kahrba) return message.reply('** لايمكنك ايقاف البوت يجب عليك الحصول علي رتبت ``Dj``**')
+        let djRole = message.author.roles.has('name', 'Dj');
+                if(!djRole) return message.reply('** لايمكنك ايقاف البوت يجب عليك الحصول علي رتبت ``Dj``**')
         message.reply(" ");
                 const embed = new Discord.RichEmbed()
                 .setColor("36393f")
@@ -2028,7 +2027,7 @@ function shuffle(queue) {
 
 client.on("message", message => {
 	var command = message.content.toLowerCase().split(" ")[0];
-   	let djRole = message.author.roles.find('name', 'Dj');
+   	var djRole = message.author.roles.has('name', 'Dj');
         if(!djRole) return;
         if(command == prefix + 'help') {
      let embed = new Discord.RichEmbed()
@@ -2051,7 +2050,7 @@ ${prefix}help or ${prefix}commands ->  يعرض لك الاوامر البوت �
 
 
 client.on('message', message => {
-	let djRole = message.author.roles.find('name', 'Dj');
+	var djRole = message.author.roles.has('name', 'Dj');
 	if(!djRole) return;
 	var command = message.content.toLowerCase().split(" ")[0];
 	
