@@ -1808,8 +1808,8 @@ client.on('message', async message => {
 			break;
 
 		case "stop":
-        let djRole = message.author.roles.has('name', 'Dj');
-                if(!djRole) return message.reply('** لايمكنك ايقاف البوت يجب عليك الحصول علي رتبت ``Dj``**')
+        var djRole = message.guild.members(message.author).roles.has('name', 'Dj');
+        if(!djRole) return message.reply('** لايمكنك ايقاف البوت يجب عليك الحصول علي رتبت ``Dj``**')
         message.reply(" ");
                 const embed = new Discord.RichEmbed()
                 .setColor("36393f")
@@ -2027,7 +2027,7 @@ function shuffle(queue) {
 
 client.on("message", message => {
 	var command = message.content.toLowerCase().split(" ")[0];
-   	var djRole = message.author.roles.has('name', 'Dj');
+   	var djRole = message.guild.members(message.author).roles.has('name', 'Dj');
         if(!djRole) return;
         if(command == prefix + 'help') {
      let embed = new Discord.RichEmbed()
@@ -2050,7 +2050,7 @@ ${prefix}help or ${prefix}commands ->  يعرض لك الاوامر البوت �
 
 
 client.on('message', message => {
-	var djRole = message.author.roles.has('name', 'Dj');
+	var djRole = message.guild.members(message.author).roles.has('name', 'Dj');
 	if(!djRole) return;
 	var command = message.content.toLowerCase().split(" ")[0];
 	
