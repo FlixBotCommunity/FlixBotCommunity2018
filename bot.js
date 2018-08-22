@@ -71,7 +71,7 @@ client.on('message', message => {
 	var muf = message.mentions.users.first();
 	
 	if(message.author.bot) return;
-	if(!message.guild.channel) return;
+	if(message.channel.type === 'dm') return;
 	
 // كود تغيير الاسم والافتار وحالة اللعب
 	if(command == prefix + 'setname') {
@@ -141,7 +141,7 @@ client.on('message', message => {
     if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('\`\`MANAGE_MESSAGES\`\` **انت لا تمتلك صلاحية**').then(msg => msg.delete(5000));
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
     if(!wUser) return message.channel.send(`**➥ Useage:** ${prefix}warn \`\`@Name\`\` reason`).then(msg => msg.delete(5000));
-	if(wUser.id === message.author.id) return message.reply('**لا يمكنك اعطاء نفسك وارن**').then(msg => msg.delete(5000));
+    if(wUser.id === message.author.id) return message.reply('**لا يمكنك اعطاء نفسك وارن**').then(msg => msg.delete(5000));
     if(wUser.hasPermission('ADMINISTRATOR')) return message.reply('**لا يمكنني اعطاء هذا الشخص وارن لانه اداري**').then(msg => msg.delete(5000));
     if (!message.guild.member(wUser).kickable) return message.reply('**لا يمكنني اعطاء هذا الشخص وارن لان رتبته فوق رتبتي**').then(msg => msg.delete(5000));
     let reason = args.slice(2).join(" ");
@@ -1209,7 +1209,7 @@ client.on('message', message => {
 	var command = message.content.toLowerCase().split(" ")[0];
     if(command == prefix + 'sug') {
 		if(message.author.bot) return;
-		if(!message.channel.guild) return;
+		if(message.channel.type === 'dm') return;
 		var member = message.author.id;
 		var channel = message.guild.channels.find('name', '⫸【『الاقتراحات』】');
 		if(!channel) return;
@@ -1265,15 +1265,15 @@ No.on("collect", r => {
 
 client.on('message', message => {
 	var command = message.content.toLowerCase().split(" ")[0];
-    let mc = message.content.split(' ').slice(1).join(' ');
+	var mc = message.content.split(' ').slice(1).join(' ');
 	var player = message.author.id;
 	
 	if(command == prefix + 'survival-join') {
 		if(message.author.bot) return;
-		if(!message.channel.guild) return;
+		if(message.channel.type === 'dm') return;
 		if(!message.guild.channels.get('472937440454377472')) return;
 		if(cooldownSurvival.has(message.author.id)) return message.reply('**لقد قمت بالتقديم مسبقا**');
-        if(!mc) return message.channel.send(`**➥ Useage:** ${prefix}survival-join <اسمك بماين كرافت>`).then(msg => msg.delete(5000));
+		if(!mc) return message.channel.send(`**➥ Useage:** ${prefix}survival-join <اسمك بماين كرافت>`).then(msg => msg.delete(5000));
 		if(mc.length > 20) return message.reply('**هذا ليس اسم بماين كرافت**').then(msg => msg.delete(3000));
 		if(mc.length < 3) return message.reply('**هذا ليس اسم بماين كرافت**').then(msg => msg.delete(3000));
 		
@@ -1317,7 +1317,7 @@ aceept.on('collect', r => {
 	if(!survivalRole) return message.guild.owner.send(`\`\`• Survival\`\` **الرجاء صنع رتبة باسم**`);
 	message.member.addRole(survivalRole);
 			})
-			})
+		})
 	}
 });
 
@@ -1573,13 +1573,13 @@ client.on('voiceStateUpdate', (voiceOld, voiceNew) => {
 
 // الموسيقى
 client.on('message', async message => {
-	if (message.author.bot) return;
-	if (!message.channel.guild) return;
+	if(message.author.bot) return;
+	if(message.channel.type === 'dm') return;
 
 	let messageContent = message.content.split(" ");
 	let command = messageContent[0];
 	let args = messageContent.slice(1);
-	if (!command.startsWith(prefix)) return;
+	if(!command.startsWith(prefix)) return;
 
 	switch (command.slice(1).toLowerCase()) {
 
