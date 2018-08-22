@@ -1599,10 +1599,15 @@ client.on('message', async message => {
 				} else {
 					isPlaying = true;
 					playMusic(queue[0], message);
-					message.channel.send({embed: {
-                    color: 3447003,
-                    description: "**تم بدء تشغيل الاغنية.  : **" + songsQueue[0],
-                    }});
+					let Playing = new Discord.RichEmbed()
+					.setTitle('**[MUSIC]**')
+					.setColor('GRAY')
+					.setThumbnail(client.user.avatarURL)
+					.addField('يتم الان تشغيل:', `**${songsQueue[0]}**`)
+					.setTimestamp()
+					.setFooter(`Request by: ${message.author.tag}`, message.author.avatarURL)
+					
+					message.channel.send(Playing);
 				}
 			} else if (args.length == 0 && queue.length == 0) {
 				message.reply("قائمة التشغيل فارغة الآن , .play [ واسم الاغنية ] or .yt [ ومصطلح البحث ] || لتشغيل والبحث عن الاغاني");
