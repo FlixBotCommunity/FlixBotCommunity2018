@@ -1313,23 +1313,6 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 			if(err) console.error(err)
 		});
 	};
-	if(command == prefix + 'top-games') {
-		var games1 = require('./games.json');
-		var games = JSON.parse(fs.readFileSync('./games.json', 'utf8'));
-		let top = Object.values(games);
-		
-		message.channel.send(games1.slice(1,11).map((data,num) => {
-			var lazPoints = games[data.id].laz;
-			var fkkPoints = games[data.id].fkk;
-			var fastPoints = games[data.id].fast;
-			var emojiPoints = games[data.id].emoji;
-			var flagPoints = games[data.id].flag;
-			var mathPoints = games[data.id].math;
-			var allPoints = lazPoints + fkkPoints + fastPoints + emojiPoints + flagPoints + mathPoints;
-  y/
-	  
-		8 765  }));
-	}
 });
 
 client.on('message', message => {
