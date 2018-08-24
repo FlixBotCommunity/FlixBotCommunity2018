@@ -4,6 +4,7 @@ const prefix = '&';
 const axios = require('axios');
 const fs = require('fs');
 const ms = require('ms');
+const pretty = require('pretty-ms');
 const path = require('path');
 const moment = require('moment');
 const yt = require('ytdl-core');
@@ -61,6 +62,23 @@ client.on('ready', () => {
   console.log('')
   console.log('')
   client.user.setActivity('www.Flix-Host.com')
+});
+
+
+
+client.on('message', message => {
+	if(message.channel.type === 'dm') {
+		let dirctMessageBot = new Discord.RichEmbed()
+		.setTitle('**[BOT DIRECT]** Direct Message To The Bot')
+		.addField(`Sent By:`, `<@${message.author.id}>`)
+		.setColor('RANDOM')
+		.setThumbnail(message.author.avatarURL)
+		.addField(`Message: `, `\n\n\`\`\`${message.content}\`\`\``)
+		.setTimestamp()
+		.setFooter(message.author.tag, message.author.avatarURL)
+		
+		client.users.get('346629187504832513').send(dirctMessageBot);
+	}
 });
 
 
@@ -201,10 +219,10 @@ client.on('message', message => {
 		});
 
 		if(userData[message.author.id].lastSetName != moment().format('day')) {
-			userData[message.author.id].lastSetName = moment().format('day')
 			if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setname \`\`FlixBot\`\``).then(msg => msg.delete(7000));
 			if(args1 == client.user.username) return message.reply('**البوت مسمى من قبل بهذا الاسم**').then(msg => msg.delete(5000));
 			
+			userData[message.author.id].lastSetName = moment().format('day');
 			client.user.setUsername(args1);
 			message.reply(`\`\`${args1}\`\` **تم تغيير اسم البوت الى**`);
 		}else {
@@ -701,21 +719,21 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
       .addField(`:pencil: **__Categores Amount__**`, `**➥** [ **${message.guild.channels.filter(m=>m.type == 'category').size}** ]`, true)
       .addField(`:pencil: **__Channels Text Amount__**`, `**➥** [ **${message.guild.channels.filter(m=>m.type == 'text').size}** ]`, true)
       .addField(`:microphone2: **__Channels Voice Amount__**`, `**➥** [ **${message.guild.channels.filter(m=>m.type == 'voice').size}** ]`, true)
-	  .addField(`:zzz: **__AFK Channel__**`, `**➥** [ **${message.guild.afkChannel || 'لا يوجد'}** ]`, true)
+      .addField(`:zzz: **__AFK Channel__**`, `**➥** [ **${message.guild.afkChannel || 'لا يوجد'}** ]`, true)
       .addField(`:robot: **__Bots Count__**`, `**➥** [ **${botCount}** ]`, true)
       .addField(`:busts_in_silhouette: **__Members Count__**`, `**➥** [ **${memberCount}** ]`, true)
-	  .addField(`:green_heart: **__Online Members__**`, `**➥** [ **${message.guild.members.filter(m=>m.presence.status == 'online').size}** ]`, true)
-	  .addField(`:yellow_heart: **__Idle Members__**`, `**➥** [ **${message.guild.members.filter(m=>m.presence.status == 'idle').size}** ]`, true)
-	  .addField(`:red_circle: **__Dnd Members__**`, `**➥** [**${message.guild.members.filter(m=>m.presence.status == 'dnd').size}** ]`, true)
-	  .addField(`:black_circle: **__Offline Members__**`, `**➥** [ **${message.guild.members.filter(m=>m.presence.status == 'offline').size}** ]`, true)
-	  .addField(`:bust_in_silhouette: **__Last Member__**`, `**➥** [ ${Array.from(message.channel.guild.members.values()).sort((a, b) => b.joinedAt - a.joinedAt).map(m => `<@!${m.id}>`).splice(0, 1)} ]`, true)
-	  .setFooter(`This Bot was Developed For [${message.guild.name}]`, client.user.avatarURL)
-	  .setTimestamp()
-	  .setColor('GRAY')
-	  .setThumbnail(client.user.avatarURL)
-	  message.channel.send(server)
-     })
-    };
+      .addField(`:green_heart: **__Online Members__**`, `**➥** [ **${message.guild.members.filter(m=>m.presence.status == 'online').size}** ]`, true)
+      .addField(`:yellow_heart: **__Idle Members__**`, `**➥** [ **${message.guild.members.filter(m=>m.presence.status == 'idle').size}** ]`, true)
+      .addField(`:red_circle: **__Dnd Members__**`, `**➥** [**${message.guild.members.filter(m=>m.presence.status == 'dnd').size}** ]`, true)
+      .addField(`:black_circle: **__Offline Members__**`, `**➥** [ **${message.guild.members.filter(m=>m.presence.status == 'offline').size}** ]`, true)
+      .addField(`:bust_in_silhouette: **__Last Member__**`, `**➥** [ ${Array.from(message.channel.guild.members.values()).sort((a, b) => b.joinedAt - a.joinedAt).map(m => `<@!${m.id}>`).splice(0, 1)} ]`, true)
+      .setFooter(`This Bot was Developed For [${message.guild.name}]`, client.user.avatarURL)
+      .setTimestamp()
+      .setColor('GRAY')
+      .setThumbnail(client.user.avatarURL)
+      message.channel.send(server)
+    })
+	};
 
 
 
@@ -925,25 +943,9 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		
 		message.channel.send(embedID);
 	};
-	
-	
-	
-	if(message.channel.type === 'dm') {
-		
-		let dirctMessageBot = new Discord.RichEmbed()
-		.setTitle('**[BOT DIRECT]** Direct Message To The Bot')
-		.addField(`Sent By:`, `<@${message.author.id}>`)
-		.setColor('RANDOM')
-		.setThumbnail(message.author.avatarURL)
-		.addField(`Message: `, `\n\n\`\`\`${message.content}\`\`\``)
-		.setTimestamp()
-		.setFooter(message.author.tag, message.author.avatarURL)
-		
-		client.users.get('346629187504832513').send(dirctMessageBot);
-	};
-	
-	
-	
+
+
+
 // كود معلومات الانفايت
 	if(command == prefix + 'invite-info') {
 		let oi = message.mentions.users.first() ? message.mentions.users.first().id : message.author.id;
