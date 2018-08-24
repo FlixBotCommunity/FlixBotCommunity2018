@@ -2151,9 +2151,9 @@ function shuffle(queue) {
 
 client.on("message", message => {
 	var command = message.content.toLowerCase().split(" ")[0];
-   	var djRole = message.guild.members.get(message.author.id).roles.has(message.guild.roles.find('name', 'Dj'));
-        if(!djRole) return;
         if(command == prefix + 'help') {
+		var djRole = message.guild.members.get(message.author.id).roles.has(message.guild.roles.find('name', 'Dj'));
+		if(!djRole) return;
      let embed = new Discord.RichEmbed()
          .setColor("36393f")
          .setDescription(`**
@@ -2174,11 +2174,11 @@ ${prefix}help or ${prefix}commands ->  يعرض لك الاوامر البوت �
 
 
 client.on('message', message => {
-	var djRole = message.guild.members.get(message.author.id).roles.has(message.guild.roles.find('name', 'Dj'));
-	if(!djRole) return;
 	var command = message.content.toLowerCase().split(" ")[0];
 	
 	if(command == prefix + 'help') {
+		var djRole = message.guild.members.get(message.author.id).roles.has(message.guild.roles.find('name', 'Dj'));
+	if(!djRole) return;
 		let embed = new Discord.RichEmbed()
          .setColor("36393f")
          .setDescription(`**
