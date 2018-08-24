@@ -197,7 +197,7 @@ client.on('message', message => {
 		}
 		fs.writeFile('./userData.json', JSON.stringify(userData), (err) => {
 			if(err) console.error(err);
-		};
+		});
 
 		if(userData[message.author.id].lastSetName != moment().format('day')) {
 			userData[message.author.id].lastSetName = moment().format('day')
