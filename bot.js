@@ -1005,9 +1005,12 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 		fast: 0,
 		emoji: 0,
 		flag: 0,
-		math: 0,
+		math: 0
 	};
-	
+	fs.writeFile('./games.json', JSON.stringify(games), (err) => {
+		if(err) console.error(err);
+	})
+
 	if(command == prefix + 'لغز') {
 		let type = require('./qlaz.json');
 		let item = type[Math.floor(Math.random() * type.length)];
@@ -1269,7 +1272,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 			fast: 0,
 			emoji: 0,
 			flag: 0,
-			math: 0,
+			math: 0
 		};
 		
 		if(args1 == '') {
@@ -1289,7 +1292,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 				fast: 0,
 				emoji: 0,
 				flag: 0,
-				math: 0,
+				math: 0
 			};
 			
 			var lazPoints = games[muf.id].laz;
