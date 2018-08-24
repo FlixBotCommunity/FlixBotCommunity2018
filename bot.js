@@ -178,6 +178,7 @@ client.on('message', message => {
 	var args2 = message.content.split(' ')[2];
 	var args3 = message.content.split(' ').slice(3).join(' ');
 	var command = message.content.toLowerCase().split(" ")[0];
+	var warns = JSON.parse(fs.readFileSync("./warnings.json", "utf8"));
 	var games = JSON.parse(fs.readFileSync('./games.json', 'utf8'));
 	var userData = JSON.parse(fs.readFileSync('./userData.json', 'utf8'));
 	var muf = message.mentions.users.first();
@@ -246,7 +247,6 @@ client.on('message', message => {
 
 
 // كود الوارن
-    let warns = JSON.parse(fs.readFileSync("./warnings.json", "utf8"));
     if(command == prefix + 'warn') {
     if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('\`\`MANAGE_MESSAGES\`\` **انت لا تمتلك صلاحية**').then(msg => msg.delete(5000));
     let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.get(args[0])
