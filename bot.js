@@ -198,6 +198,7 @@ client.on('message', message => {
 		}else {
 			message.reply(`You can change name bot in **${moment().endOf('day').fromNow()}**`);
 		}
+	}
 		if(command == prefix + 'setavatar') {
 			if(!devs.includes(message.author.id)) return;
 			if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setavatar \`\`Link\`\``).then(msg => msg.delete(7000));
