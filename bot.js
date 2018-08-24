@@ -267,7 +267,6 @@ client.on('message', message => {
 						SEND_MESSAGES: false,
 						READ_MESSAGE_HISTORY: false,
 						ADD_REACTIONS: false,
-						SPEAK: false
 						});
 				});
 			});
@@ -1030,7 +1029,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 				message.channel.send(`${collected.first().author} ✅ \`\`${allPoints + 1}\`\` لقد قمت بحل اللغز بالوقت المناسب, **مجموع نقاطك**`);
 				games[won.id].laz++;
 				cooldownGames.delete(message.author.id);
-				fs.writeFile("./games/games.json", JSON.stringify(games), (err) => {
+				fs.writeFile("./games.json", JSON.stringify(games), (err) => {
 					if(err) console.error(err)
 				})
 			})
@@ -1072,7 +1071,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 				message.channel.send(`${collected.first().author} ✅ \`\`${allPoints + 1}\`\` لقد قمت بتفكيك الكلمة بالوقت المناسب، **مجموع نقاطك**`);
 				games[won.id].fkk++;
 				cooldownGames.delete(message.author.id);
-				fs.writeFile("./games/games.json", JSON.stringify(games), (err) => {
+				fs.writeFile("./games.json", JSON.stringify(games), (err) => {
 					if(err) console.error(err)
 				})
 			})
@@ -1114,7 +1113,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 				message.channel.send(`${collected.first().author} ✅ \`\`${allPoints + 1}\`\` لقد قمت بكتابة الجملة بالوقت المناسب، **مجموع نقاطك**`);
 				games[won.id].fast++;
 				cooldownGames.delete(message.author.id);
-				fs.writeFile("./games/games.json", JSON.stringify(games), (err) => {
+				fs.writeFile("./games.json", JSON.stringify(games), (err) => {
 					if(err) console.error(err)
 				})
 			})
@@ -1157,7 +1156,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 				message.channel.send(`${collected.first().author} ✅ \`\`${allPoints + 1}\`\` لقد قمت بكتابة اسم الايموجي بالوقت المناسب، **مجموع نقاطك**`);
 				games[won.id].emoji++;
 				cooldownGames.delete(message.author.id);
-				fs.writeFile("./games/games.json", JSON.stringify(games), (err) => {
+				fs.writeFile("./games.json", JSON.stringify(games), (err) => {
 					if(err) console.error(err)
 				})
 			})
@@ -1200,7 +1199,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 				message.channel.send(`${collected.first().author} ✅ \`\`${allPoints + 1}\`\` لقد قمت بكتابة اسم العلم بالوقت المناسب، **مجموع نقاطك**`);
 				games[won.id].flag++;
 				cooldownGames.delete(message.author.id);
-				fs.writeFile("./games/games.json", JSON.stringify(games), (err) => {
+				fs.writeFile("./games.json", JSON.stringify(games), (err) => {
 					if(err) console.error(err)
 				})
 			})
@@ -1242,7 +1241,7 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 				message.channel.send(`${collected.first().author} ✅ \`\`${allPoints + 1}\`\` **لقد قمت بحساب المعادلة بشكل صحيح بالوقت المناسب، مجموع نقاطك**`);
 				games[won.id].math++;
 				cooldownGames.delete(message.author.id);
-				fs.writeFile("./games/games.json", JSON.stringify(games), (err) => {
+				fs.writeFile("./games.json", JSON.stringify(games), (err) => {
 					if(err) console.error(err)
 				})
 			})
