@@ -1475,7 +1475,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 	 if(!channel) return;
 	 rc.guild.fetchAuditLogs()
 	 .then(logs => {
-		 let user = logs.entries.first().executor.id
+		 let user = logs.entries.first().executor.id;
 		 var roleCreate = new Discord.RichEmbed()
 		 .setTitle(':white_check_mark: **[ROLE CREATE]**')
 		 .setThumbnail(client.user.avatarURL)
@@ -1493,7 +1493,7 @@ client.on("roleDelete", rd => {
 	 if(!channel) return;
 	 rd.guild.fetchAuditLogs()
 	 .then(logs => {
-		 let user = logs.entries.first().executor.id
+		 let user = logs.entries.first().executor.id;
 		 var roleDelete = new Discord.RichEmbed()
 		 .setTitle(':negative_squared_cross_mark: **[ROLE DELETE]**')
 		 .setThumbnail(client.user.avatarURL)
@@ -1513,7 +1513,7 @@ client.on('channelCreate', cc => {
 	 if(!channel) return;
 	 cc.guild.fetchAuditLogs()
 	 .then(logs => {
-		 let user = logs.entries.first().executor.id
+		 let user = logs.entries.first().executor.id;
 		 var channelCreate = new Discord.RichEmbed()
 		 .setTitle(':white_check_mark: **[CHANNEL CREATE]**')
 		 .setThumbnail(client.user.avatarURL)
@@ -1531,7 +1531,7 @@ client.on('channelDelete', dc => {
 	 if(!channel) return;
 	 dc.guild.fetchAuditLogs()
 	 .then(logs => {
-		 let user = logs.entries.first().executor.id
+		 let user = logs.entries.first().executor.id;
 		 var channelDelete = new Discord.RichEmbed()
 		 .setTitle(':negative_squared_cross_mark: **[CHANNEL DELETE]**')
 		 .setThumbnail(client.user.avatarURL)
