@@ -195,6 +195,10 @@ client.on('message', message => {
 			rep: 'No Message',
 			reps: 0
 		}
+		fs.writeFile('./userData.json', JSON.stringify(userData), (err) => {
+			if(err) console.error(err);
+		};
+
 		if(userData[message.author.id].lastSetName != moment().format('day')) {
 			userData[message.author.id].lastSetName = moment().format('day')
 			if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setname \`\`FlixBot\`\``).then(msg => msg.delete(7000));
