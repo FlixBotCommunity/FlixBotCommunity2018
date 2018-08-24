@@ -189,6 +189,12 @@ client.on('message', message => {
 // كود تغيير الاسم والافتار وحالة اللعب
 	if(command == prefix + 'setname') {
 		if(!devs.includes(message.author.id)) return;
+		if(!userData[message.author.id]) userData[message.author.id] = {
+			lastSetName: 'No Message',
+			credits: 0,
+			rep: 'No Message',
+			reps: 0
+		}
 		if(userData[message.author.id].lastSetName != moment().format('day')) {
 			userData[message.author.id].lastSetName = moment().format('day')
 			if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setname \`\`FlixBot\`\``).then(msg => msg.delete(7000));
