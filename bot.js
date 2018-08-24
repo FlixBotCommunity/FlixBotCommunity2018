@@ -72,6 +72,7 @@ client.on("message", async message => {
     if(message.content.indexOf(prefix) !== 0) return;
 
     if (command === "rec") {
+	    if(message.member.hasPermission('ADMINISTRATOR')) return;
         message.delete()
         if(stopReac != false) return  message.channel.send(" **لازال هناك امر قيد الإنتضار**").then(m => {m.delete(2000)})
          else {
@@ -178,6 +179,7 @@ client.on('message', message => {
 	var args3 = message.content.split(' ').slice(3).join(' ');
 	var command = message.content.toLowerCase().split(" ")[0];
 	var games = JSON.parse(fs.readFileSync('./games.json', 'utf8'));
+	var userData = JSON.parse(fs.readFileSync('./userData.json', 'utf8'));
 	var muf = message.mentions.users.first();
 	
 	if(message.author.bot) return;
@@ -185,20 +187,17 @@ client.on('message', message => {
 	
 // كود تغيير الاسم والافتار وحالة اللعب
 	if(command == prefix + 'setname') {
-		let timecooldown = '1hour';
 		if(!devs.includes(message.author.id)) return;
-		if(cooldownSetName.has(message.author.id)) return message.reply(`**${ms(ms(timecooldown))}** يجب عليك الانتظار`);
-		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setname \`\`FlixBot\`\``).then(msg => msg.delete(7000));
-		if(args1 == client.user.username) return message.reply('**البوت مسمى من قبل بهذا الاسم**').then(msg => msg.delete(5000));
-		
-		cooldownSetName.add(message.author.id);
-		client.user.setUsername(args1);
-		message.reply(`\`\`${args1}\`\` **تم تغيير اسم البوت الى**`);
-		
-		setTimeout(function() {
-			cooldownSetName.delete(message.author.id);
-		}, ms(timecooldown));
-	}
+		if(userData[message.author.id].lastSetName != moment().format('day')) {
+			userData[message.author.id].lastSetName = moment().format('day')
+			if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setname \`\`FlixBot\`\``).then(msg => msg.delete(7000));
+			if(args1 == client.user.username) return message.reply('**البوت مسمى من قبل بهذا الاسم**').then(msg => msg.delete(5000));
+			
+			client.user.setUsername(args1);
+			message.reply(`\`\`${args1}\`\` **تم تغيير اسم البوت الى**`);
+		}else {
+			message.reply(`You can change name bot in **${moment().endOf('day').fromNow()}**`);
+		}
 		if(command == prefix + 'setavatar') {
 			if(!devs.includes(message.author.id)) return;
 			if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setavatar \`\`Link\`\``).then(msg => msg.delete(7000));
