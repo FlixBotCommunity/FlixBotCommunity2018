@@ -67,6 +67,8 @@ client.on('ready', () => {
 
 client.on('message', message => {
 	if(message.channel.type === 'dm') {
+		if(message.author.id === client.user.id) return;
+		
 		let dirctMessageBot = new Discord.RichEmbed()
 		.setTitle('**[BOT DIRECT]** Direct Message To The Bot')
 		.addField(`Sent By:`, `<@${message.author.id}>`)
