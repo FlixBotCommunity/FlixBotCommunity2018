@@ -4,7 +4,6 @@ const prefix = '&';
 const axios = require('axios');
 const fs = require('fs');
 const ms = require('ms');
-const pretty = require('pretty-ms');
 const path = require('path');
 const moment = require('moment');
 const yt = require('ytdl-core');
