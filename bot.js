@@ -190,11 +190,12 @@ client.on('message', message => {
 	if(command == prefix + 'setname') {
 		if(!devs.includes(message.author.id)) return;
 		if(!userData[message.author.id]) userData[message.author.id] = {
-			lastSetName: 'No Message',
+			lastSetName: 'Not Yet',
 			credits: 0,
-			rep: 'No Message',
+			rep: 'No Reps',
 			reps: 0
-		}
+		};
+		
 		fs.writeFile('./userData.json', JSON.stringify(userData), (err) => {
 			if(err) console.error(err);
 		});
