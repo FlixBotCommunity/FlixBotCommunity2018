@@ -89,8 +89,8 @@ client.on('message', message => {
 
 // كود الرتب بالري اكشن
 client.on("message", async message => {
-	var args = message.content.spilt(" ")[1];
-	var command = message.content.toLowerCase().spilt(" ")[0];
+	var args = message.content.split(" ")[1];
+	var command = message.content.toLowerCase().split(" ")[0];
 	
 	if(message.author.bot) return;
 	if(!message.channel.type === 'dm') return;
