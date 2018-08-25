@@ -97,8 +97,8 @@ client.on("message", async message => {
 	if(message.content.indexOf(prefix) !== 0) return;
 	if(command == prefix + 'role-react') {
 		if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("sorry you can't do this");
-		if(!args[0] || args[1]) return message.channel.send(`**➥ Useage:** ${prefix}role-react <role-name>`);
-		var role = message.guild.roles.find( role => { return role.name == args[0] });
+		if(!args) return message.channel.send(`**➥ Useage:** ${prefix}role-react <role-name>`);
+		var role = message.guild.roles.find( role => { return role.name == args }) || message.guild.roles.get(args);
 		if(!role) return message.channel.send(`no role with name ${definedRoleName} found, make sure you entered correct name`);
 		if(definedReactionRole != null  || !stopReacord) return message.channel.send("another reaction role request is running");
 		message.channel.send(`now go and add reaction in the message you want for role ${role.name}`);
