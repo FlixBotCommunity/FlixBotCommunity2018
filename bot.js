@@ -89,7 +89,7 @@ client.on('message', message => {
 
 // كود الرتب بالري اكشن
 client.on("message", async message => {
-	var args = message.content.slice(2).split(" ").join(" ");
+	var args = message.content.split(' ').slice(1).join(' ');
 	var command = message.content.toLowerCase().split(" ")[0];
 	
 	if(message.author.bot) return;
