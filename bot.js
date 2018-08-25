@@ -100,7 +100,7 @@ client.on("message", async message => {
 		if(!args) return message.channel.send(`**➥ Useage:** ${prefix}role-react <role-name>`);
 		var role = message.guild.roles.find('name', args) || message.guild.roles.find('id', args);
 		if(!role) return message.channel.send(`No role with name **${args}** found, make sure you entered correct name`);
-		message.channel.send(`Now go and add reaction in the message you want for role ${role.name}`);
+		message.channel.send(`Now go and add reaction in the message you want for role **${role.name}**`);
 		definedReactionRole = role;
 		stopReacord = false;
 	}
@@ -111,7 +111,7 @@ client.on('raw', raw => {
 	if(channel.messages.has(raw.d.message_id)) return;
 	channel.fetchMessage(raw.d.message_id).then(message => {
 		var reaction = message.reactions.get( (raw.d.emoji.id ? `${raw.d.emoji.name}:${raw.d.emoji.id}` : raw.d.emoji.name) );
-		message.channel.send(`:white_check_mark: Successfully add reaction :${raw.d.emoji.name}: To message id **${raw.d.message_id}** In Channel <#${channel}>`);
+		message.guild.channels.find('name', 'flixbot-log').send(`:white_check_mark: Successfully add reaction ${raw.d.emoji.name} To message ID **${raw.d.message_id}** In Channel ${channel}`);
 		if(raw.t === 'MESSAGE_REACTION_ADD') return client.emit('messageReactionAdd', reaction, client.users.get(raw.d.user_id));
 		if(raw.t === 'MESSAGE_REACTION_REMOVE') return client.emit('messageReactionRemove', reaction, client.users.get(raw.d.user_id));
 	});
