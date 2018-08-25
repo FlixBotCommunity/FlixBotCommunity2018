@@ -98,8 +98,8 @@ client.on("message", async message => {
 	if(command == prefix + 'role-react') {
 		if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send('`ADMINISTRATOR` **انت لا تمتلك صلاحية**');
 		if(!args) return message.channel.send(`**➥ Useage:** ${prefix}role-react <role-name>`);
-		var role = message.guild.roles.find(role => { return role.name == args }) || message.guild.roles.get(role => { return role.id == args });
-		if(!role) return message.channel.send(`no role with name ${role} found, make sure you entered correct name`);
+		var role = message.guild.roles.find('name', args) || message.guild.roles.get(args);
+		if(!role) return message.channel.send(`no role with name **${args}** found, make sure you entered correct name`);
 		if(role != null  || !stopReacord) return message.channel.send('another reaction role request is running');
 		message.channel.send(`now go and add reaction in the message you want for role ${role.name}`);
 		definedReactionRole = role;
