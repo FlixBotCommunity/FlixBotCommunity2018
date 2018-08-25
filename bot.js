@@ -393,30 +393,6 @@ if(warns[wUser.id].warns == 2){
 
 
 
-// كود صددام
-	if(command == prefix + '9dAmm') {
-		var For9dAmm = ['325165115131428864'];
-		if(command === '9dAmm') return;
-		if(!For9dAmm.includes(message.author.id)) return message.reply('**! هذا الامر لجنرالل صددام فقط**').then(msg => msg.delete(3000));
-	let e9dAmm = new Discord.RichEmbed()
-	.setTitle(`:open_file_folder: [**${message.author.username}#${message.author.discriminator}**] معلومات عن`)
-	.setThumbnail(message.author.avatarURL)
-	.setColor('#fdf600')
-	.addField(':crown: **الاسم:**', '**➥** !جنرالل صددام', true)
-	.addField(':crown: **العمر:**', '**➥** 20', true)
-	.addField(':crown: **الرتبة:**', '**➥** Co-Owner', true)
-	.addField(':crown: **الاسم بالدسكورد:**', `<@${message.author.id}>`, true)
-	.addField(':crown: **تاريخ انشاء الحساب:**', `**➥** ${message.author.createdAt.toLocaleString()}`, true)
-	.addField(':crown: **الايدي:**', `${message.author.id}`, true)
-	.addField(':crown: **التاق:**', `**➥** #${message.author.discriminator}`, true)
-	.addField(':crown: **تاريخ الدخول الى السيرفر:**', `**➥** ${message.member.joinedAt.toLocaleString()}`, true)
-	.setTimestamp()
-	.setFooter(`[ 9dAmm ] Is Here.`, message.author.avatarURL)
-	message.channel.send(e9dAmm)
-	};
-
-
-
 // كود البنق
 	if(command == prefix + 'ping') {
 		if(message.author.bot) return;
@@ -691,9 +667,6 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 
 
 // كود الايدي
-	var year = message.author.createdAt.getFullYear()
-	var month = message.author.createdAt.getMonth()
-	var day = message.author.createdAt.getDate()
 	if(command == prefix + 'id') {
 		if (args1 == '') {
 			var z = message.author;
@@ -716,12 +689,25 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 					}else {
 						var w = 'Member';
 					}
+					
+					if(z.presence.status == 'online') {
+						var status = 'اونلاين';
+					} else
+					if(z.presence.status == 'idle') {
+						var status = 'خامل';
+					} else
+					if(z.presence.status == 'dnd') {
+						var status = 'مشغول';
+					} else
+					if(z.presence.status == 'offline') {
+						var status = 'اوفلاين';
+					} else
 					let idPlayer = new Discord.RichEmbed()
 					.setColor('GRAY')
 					.addField(':bust_in_silhouette: **__الاسم:__**', `**➥** [ <@${z.id}> ]`, true)
 					.addField(':id: **__الايدي:__**', `**${z.id}**`, true)
 					.addField(':video_game: **__يلعب:__**', `**➥** [ ${y} ]`, true)
-					.addField(':red_circle: **__الحالة:__**', `**➥** [ **${z.presence.status}** ]`, true)
+					.addField(':red_circle: **__الحالة:__**', `**➥** [ **${status}** ]`, true)
 					.addField(':robot: **__نوع الحساب:__**', `**➥** [ **${w}** ]`, true)
 					.addField(':hash: **__التاق حق الحساب:__**', `**➥** [ **#${z.discriminator}** ]`,true)
 					.addField(':calendar_spiral: **__تاريخ دخول الدسكورد:__**', `${accountCreatedAt}`, true)
