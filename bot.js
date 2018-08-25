@@ -89,14 +89,15 @@ client.on('message', message => {
 
 // كود الرتب بالري اكشن
 client.on("message", async message => {
-	var args = message.content.slice(prefix.length).trim().split(/ +/g);
+	var args = message.content.slice(prefix.length);
 	var command = args.shift().toLowerCase();
+	
 	if(message.author.bot) return;
 	if(!message.channel.type === 'dm') return;
 	if(message.content.indexOf(prefix) !== 0) return;
 	if(command == 'role-react') {
 		if(!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("sorry you can't do this");
-		if(!args[0] || args[1]) return message.channel.send(`\`\`\`${prefix}role-react <role-name>\`\`\``);
+		if(!args[0] || args[1]) return message.channel.send(`**➥ Useage:** ${prefix}role-react <role-name>`);
 		var role = message.guild.roles.find( role => { return role.name == args[0] });
 		if(!role) return message.channel.send(`no role with name ${definedRoleName} found, make sure you entered correct name`);
 		if(definedReactionRole != null  || !stopReacord) return message.channel.send("another reaction role request is running");
