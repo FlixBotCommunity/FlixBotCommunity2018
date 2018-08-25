@@ -701,7 +701,8 @@ message.reply('**عندك اعدادات الخصوصيه لا يمكنني ان
 					} else
 					if(z.presence.status == 'offline') {
 						var status = 'اوفلاين';
-					} else
+					}
+		
 					let idPlayer = new Discord.RichEmbed()
 					.setColor('GRAY')
 					.addField(':bust_in_silhouette: **__الاسم:__**', `**➥** [ <@${z.id}> ]`, true)
