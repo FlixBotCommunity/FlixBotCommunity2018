@@ -32,7 +32,7 @@ flix.on('ready', () => {
 	console.log('')
 	console.log('╔[═════════════════════════════╗ Log ╔═════════════════════════════]╗')
 
-    var Words = ['www.Flix-Host.com', 'FlixCommunity', `${prefix}sug`, 'More Soon.'];
+    var Words = ['www.Flix-Host.com', 'FlixCommunity', 'More Soon.'];
     var Alpha1 = -1;
     var Alpha2 = 0;
 
@@ -55,17 +55,18 @@ flix.on('message', async function(message) {
 	
 	var command = message.content.toLowerCase().split(" ")[0];
 	var args = message.content.toLowerCase().split(' ');
+	var args1 = args.slice(1).join(' ');
 	
 	if(command == prefix + 'sug') {
 		var sugChannel = message.guild.channels.find(c => c.id === '488713677688537088');
 		
-		if(!args) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
-		if(args.lenght > 1500) return message.channel.send(`:no_entry: | اقتراحك **${args.length}** حرف! جرب بأقل من **1500** حرف`);
+		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
+		if(args1.lenght > 1500) return message.channel.send(`:no_entry: | اقتراحك **${args.length}** حرف! جرب بأقل من **1500** حرف`);
 		
 		var sugS = new Discord.RichEmbed()
 		.setTitle('الاقتراح:')
 		.setColor('RED')
-		.setDescription(`**${args}**`)
+		.setDescription(`**${args1}**`)
 		.setFooter(':no_entry: اذا كان الاقتراح طلب لحساب او لعب بالامر سوف تحاسب من قبل الادارة', message.author.avatarURL)
 		
 		message.channel.send(sugS).then(msgSu2 => {
@@ -92,7 +93,7 @@ flix.on('message', async function(message) {
 					.setTitle(`**:bell: اقــــــتـــراح جـــــديــــــد :bell:**`)
 					.setThumbnail(message.author.avatarURL)
 					.setColor('GREEN')
-					.setDescription(`**➥ From:**\n<@${message.author.id}>\n\n**➥ Suggestion:**\n${args}`)
+					.setDescription(`**➥ From:**\n<@${message.author.id}>\n\n**➥ Suggestion:**\n${args1}`)
 					.setTimestamp()
 					.setFooter(message.author.tag, message.author.avatarURL)
 					
@@ -101,7 +102,7 @@ flix.on('message', async function(message) {
 					})
 				});
 				dontSend.on('collect', r => {
-					message.reply(`:no_entry: | <@${message.author.id}> تم الغاء اقتراحك بنجاح`).then(msg => msg.delete(5000));
+					message.channel.send(`:no_entry: | <@${message.author.id}> تم الغاء اقتراحك بنجاح`).then(msg => msg.delete(5000));
 					msgSu.delete();
 					msgSu2.delete();
 				})
