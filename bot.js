@@ -5,6 +5,8 @@ const ms = require('ms');
 const moment = require('moment');
 const prefix = '$';
 
+var cds = new Set();
+
 flix.on('ready', () => {
 	console.log('')
 	console.log('')
@@ -60,6 +62,8 @@ flix.on('message', async function(message) {
 	if(command == prefix + 'sug') {
 		var sugChannel = message.guild.channels.find(c => c.id === '488713677688537088');
 		
+		if(!sugChannel) return message.channel.send(':no_entry: | لا يوجد روم للاقتراحات');
+		if(cds.has(message.author.id)) return message.channel.send(`:no_entry: | <@${message.author.id}> يجب عليك الانتظار 5 دقائق`);
 		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
 		if(args1.length > 1000) return message.channel.send(`:no_entry: | اقتراحك **${args1.length}** حرف! جرب بأقل من **1000** حرف`).then(msg => message.delete());
 		
@@ -82,6 +86,8 @@ flix.on('message', async function(message) {
 				let dontSend = msgSu.createReactionCollector(no);
 				
 				yesSend.on('collect', r => {
+					cds.add(message.author.id);
+					
 					var sugD = new Discord.RichEmbed()
 					.setColor('GREEN')
 					.setDescription(`:white_check_mark: | <@${message.author.id}> **تم ارسال اقتراحك بنجاح!**`)
@@ -110,6 +116,9 @@ flix.on('message', async function(message) {
 				})
 			})
 		})
+		setTimeout(() => {
+			cds.delete(message.author.id);
+		}, 300000);
 	}
 });
 
