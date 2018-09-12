@@ -126,7 +126,7 @@ flix.on('message', async function(message) {
 flix.on('guildMemberAdd', member => {
 	if(datediff(parseDate(moment(member.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 1) {
 		member.guild.member(member).ban({ reason: 'Fake account.' })
-		member.guild.channels.find(c => c.id === '473143014332694528').send(`:white_check_mark: | <@${member.id}> Successfully banned. reason: \`\`Fake account.\`\``);
+		member.guild.channels.find(c => c.id === '473143014332694528').send(`:white_check_mark: | <@${member.id}> Successfully banned. Reason: \`\`Fake account.\`\``);
 	}
 });
 function parseDate(str) {
