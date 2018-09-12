@@ -61,7 +61,7 @@ flix.on('message', async function(message) {
 		var sugChannel = message.guild.channels.find(c => c.id === '488713677688537088');
 		
 		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
-		if(args1.lenght > 1500) return message.channel.send(`:no_entry: | اقتراحك **${args.length}** حرف! جرب بأقل من **1500** حرف`);
+		if(args1.length > 1000) return message.channel.send(`:no_entry: | اقتراحك **${args.length}** حرف! جرب بأقل من **1500** حرف`);
 		
 		var sugS = new Discord.RichEmbed()
 		.setTitle('الاقتراح:')
