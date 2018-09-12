@@ -25,6 +25,7 @@ flix.on('ready', () => {
 	console.log(`╔[ Servers [ " ${flix.guilds.size} " ]╗`);
 	console.log(`╔[ Users [ " ${flix.users.size} " ]╗`);
 	console.log(`╔[ Channels [ " ${flix.channels.size} " ]╗`);
+	console.log(`╔[ Bot ID [ " #${flix.user.id} " ]╗`);
 	console.log(`╔[ Bot Tag [ " #${flix.user.discriminator} " ]╗`);
 	console.log('╔[═════════════════════════════════════════════════════════════════]╗')
 	console.log('')
@@ -108,5 +109,19 @@ flix.on('message', async function(message) {
 		})
 	}
 });
+
+
+flix.on('guildMemberAdd', member => {
+	if(datediff(parseDate(moment(member.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 1) {
+		member.guild.member(member).ban({ reason: 'The Account Was Created Less Then 1 Day' });
+	};
+});
+function parseDate(str) {
+	var mdy = str.split('/');
+	return new Date(mdy[2], mdy[0]-1, mdy[1]);
+};
+function datediff(first, second) {
+	return Math.round((second-first)/(1000*60*60*24));
+};
 
 flix.login(process.env.BOT_TOKEN);
