@@ -84,7 +84,7 @@ flix.on('message', async function(message) {
 				yesSend.on('collect', r => {
 					var sugD = new Discord.RichEmbed()
 					.setColor('GREEN')
-					.setDescription(`**تم ارسال اقتراحك بنجاح!**`)
+					.setDescription(`:white_check_mark: | <@${message.author.id}> **تم ارسال اقتراحك بنجاح!**`)
 					
 					message.channel.send(sugD).then(msg => msg.delete(5000));
 					
