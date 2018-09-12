@@ -25,7 +25,7 @@ flix.on('ready', () => {
 	console.log(`╔[ Servers [ " ${flix.guilds.size} " ]╗`);
 	console.log(`╔[ Users [ " ${flix.users.size} " ]╗`);
 	console.log(`╔[ Channels [ " ${flix.channels.size} " ]╗`);
-	console.log(`╔[ Bot ID [ " #${flix.user.id} " ]╗`);
+	console.log(`╔[ Bot ID [ " ${flix.user.id} " ]╗`);
 	console.log(`╔[ Bot Tag [ " #${flix.user.discriminator} " ]╗`);
 	console.log('╔[═════════════════════════════════════════════════════════════════]╗')
 	console.log('')
@@ -57,7 +57,7 @@ flix.on('message', async function(message) {
 	var args = message.content.toLowerCase().split(' ');
 	
 	if(command == prefix + 'sug') {
-		var sugChannel = message.guild.channels.find(c => c.id === '485880203827085322');
+		var sugChannel = message.guild.channels.find(c => c.id === '488713677688537088');
 		
 		if(!args) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
 		if(args.lenght > 1500) return message.channel.send(`:no_entry: | اقتراحك **${args.length}** حرف! جرب بأقل من **1500** حرف`);
