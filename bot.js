@@ -61,7 +61,7 @@ flix.on('message', async function(message) {
 		var sugChannel = message.guild.channels.find(c => c.id === '488713677688537088');
 		
 		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
-		if(args1.length > 1000) return message.channel.send(`:no_entry: | اقتراحك **${args1.length}** حرف! جرب بأقل من **1000** حرف`);
+		if(args1.length > 1000) return message.channel.send(`:no_entry: | اقتراحك **${args1.length}** حرف! جرب بأقل من **1000** حرف`).then(msg => message.delete());
 		
 		message.delete();
 		
