@@ -63,11 +63,13 @@ flix.on('message', async function(message) {
 		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
 		if(args1.length > 1000) return message.channel.send(`:no_entry: | اقتراحك **${args1.length}** حرف! جرب بأقل من **1000** حرف`);
 		
+		message.delete();
+		
 		var sugS = new Discord.RichEmbed()
 		.setTitle('الاقتراح:')
 		.setColor('RED')
 		.setDescription(`**${args1}**`)
-		.setFooter(':no_entry: اذا كان الاقتراح طلب لحساب او لعب بالامر سوف تحاسب من قبل الادارة', message.author.avatarURL)
+		.setFooter('NOTE: اذا كان الاقتراح طلب لحساب او لعب بالامر سوف تحاسب من قبل الادارة', message.author.avatarURL)
 		
 		message.channel.send(sugS).then(msgSu2 => {
 			message.channel.send('__هل أنت متأكد أنك تريد ارسال اقتراحك الى روم الاقتراحات؟__').then(msgSu => {
