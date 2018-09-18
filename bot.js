@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js');Alpha
 const flix = new Discord.Client();
 const fs = require('fs');
 const ms = require('ms');
@@ -379,7 +379,7 @@ flix.on('message', async function(message) {
 		if(userM) {
 			if(!getRole) return message.channel.send(':no_entry: | I couldn\'t find the role!');
 			if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
-			if(getRole.position >= message.guild.member(Alpha.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Or \`\`DELETE\`\` Any user have or not have **${getRole.name}** role beacuse this role highest from my role!`);
+			if(getRole.position >= message.guild.member(flix.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Or \`\`DELETE\`\` Any user have or not have **${getRole.name}** role beacuse this role highest from my role!`);
 			
 			if(!message.guild.member(userM.user).roles.has(getRole.id)) {
 				message.guild.member(userM.user).addRole(getRole.id);
@@ -402,7 +402,7 @@ flix.on('message', async function(message) {
 			if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
 
 			if(args[2] === 'add') {
-				if(getRole.position >= message.guild.member(Alpha.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any User the role with name **${getRole.name}** beacuse the role highest then my role!`);
+				if(getRole.position >= message.guild.member(flix.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any User the role with name **${getRole.name}** beacuse the role highest then my role!`);
 				if(message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user not have **${getRole.name}** role!`);
 
 				let humansSure = new Discord.RichEmbed()
@@ -437,7 +437,7 @@ flix.on('message', async function(message) {
 					});
 				})
 			}else if(args[2] === 'remove') {
-				if(getRole.position >= message.guild.member(Alpha.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any User beacuse the role highest then my role!`);
+				if(getRole.position >= message.guild.member(flix.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any User beacuse the role highest then my role!`);
 				if(message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user have **${getRole.name}** role!`);
 
 				let humansSure = new Discord.RichEmbed()
@@ -486,7 +486,7 @@ flix.on('message', async function(message) {
 			if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
 
 			if(args[2] === 'add') {
-				if(getRole.position >= message.guild.member(Alpha.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any Bot the role with name **${getRole.name}** beacuse the role highest then my role!`);
+				if(getRole.position >= message.guild.member(flix.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any Bot the role with name **${getRole.name}** beacuse the role highest then my role!`);
 				if(message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any bot not have **${getRole.name}** role!`);
 
 				let botsSure = new Discord.RichEmbed()
@@ -521,7 +521,7 @@ flix.on('message', async function(message) {
 					});
 				})
 			}else if(args[2] === 'remove') {
-				if(getRole.position >= message.guild.member(Alpha.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any Bot beacuse the role highest then my role!`);
+				if(getRole.position >= message.guild.member(flix.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any Bot beacuse the role highest then my role!`);
 				if(message.guild.members.filter(b => message.guild.member(b).roles.has(getRole.id) && b.user.bot).size == 0) return message.channel.send(`:no_entry: | I can\'t find any bot have **${getRole.name}** role!`);
 
 				let humansSure = new Discord.RichEmbed()
@@ -570,7 +570,7 @@ flix.on('message', async function(message) {
 			if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
 
 			if(args[2] === 'add') {
-				if(getRole.position >= message.guild.member(Alpha.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any User the role with name **${getRole.name}** beacuse the role highest then my role!`);
+				if(getRole.position >= message.guild.member(flix.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`GIVE\`\` Any User the role with name **${getRole.name}** beacuse the role highest then my role!`);
 				if(message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user not have **${getRole.name}** role!`);
 
 				let allSure = new Discord.RichEmbed()
@@ -605,7 +605,7 @@ flix.on('message', async function(message) {
 					});
 				})
 			}else if(args[2] === 'remove') {
-				if(getRole.position >= message.guild.member(Alpha.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any User beacuse the role highest then my role!`);
+				if(getRole.position >= message.guild.member(flix.user).highestRole.position) return message.channel.send(`:no_entry: | I can\'t \`\`REMOVE\`\` The role with name **${getRole.name}** From any User beacuse the role highest then my role!`);
 				if(message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).size == 0) return message.channel.send(`:no_entry: | I can\'t find any user have **${getRole.name}** role!`);
 
 				let allSure = new Discord.RichEmbed()
@@ -645,10 +645,12 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'role-users') {
+		if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('no_entry: | You dont have **ADMINISTRATOR** Permission!');
 		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args[1]) || message.guild.roles.find(r => r.name.toLowerCase().includes(args[1]));
 		var number = 1;
 		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}role-users <ROLE>`);
 		if(!getRole) return message.channel.send(':no_entry: | I couldn\'t find the role!');
+		if(getRole.name === '@everyone') return message.channel.send(':no_entry: | I couldn\'t find the role!');
 		if(message.guild.members.filter(m => m.roles.has(getRole.id)).size === 0) return message.channel.send(':no_entry: | No one have this role.');
 		let embedR = new Discord.RichEmbed()
 		.setTitle(`:white_check_mark: ( **${getRole.name}** ) Role, ${message.guild.members.filter(m => m.roles.has(getRole.id)).size} users.`)
