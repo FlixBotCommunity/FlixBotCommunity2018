@@ -1,4 +1,4 @@
-const Discord = require('discord.js');Alpha
+const Discord = require('discord.js');
 const flix = new Discord.Client();
 const fs = require('fs');
 const ms = require('ms');
