@@ -158,6 +158,26 @@ flix.on('message', async function(message) {
 	}
 	
 	
+	if(command == prefix + 'bot') {
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
+		
+		var botInfo = new Discord.RichEmbed()
+		.setTitle(`:books: Information about **${flix.user.tag}** Bot.`)
+		.setThumbnail(flix.user.avatarURL)
+		.setColor('AQUA')
+		.addField(':white_check_mark: **Ping**', `**➥** [ **${flix.pings[0]}ms** ]`, true)
+		.addField(':white_check_mark: **Bot ID**', `**${flix.user.id}**` , true)
+		.addField(':white_check_mark: **Servers**', `**➥** [ **${flix.guilds.size}** ]`, true)
+		.addField(':white_check_mark: **Channels**', `**➥** [ **${flix.channels.size}** ]` , true)
+		.addField(':white_check_mark: **Users**',`**➥** [ **${flix.users.size}** ]` , true)
+		.addField(':white_check_mark: **Prefix**', `**➥** [ **${prefix}** ]`, true)
+		.addField(':white_check_mark: **Created At**', `**➥** [ ${Days(flix.user.createdAt)} ]`, true)
+		.setFooter(message.author.tag, message.author.avatarURL)
+		
+		message.channel.send(botInfo);
+	}
+	
+	
 	if(command == prefix + 'uptime') {
 		let uptime = flix.uptime;
 
