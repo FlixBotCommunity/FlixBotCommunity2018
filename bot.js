@@ -162,16 +162,11 @@ flix.on('message', async function(message) {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
 		
 		var botInfo = new Discord.RichEmbed()
-		.setTitle(`:books: Information about **${flix.user.tag}** Bot.`)
+		.setTitle(`:books: Informations about **${flix.user.tag}**`)
 		.setThumbnail(flix.user.avatarURL)
 		.setColor('AQUA')
-		.addField(':white_check_mark: **Ping**', `**➥** [ **${flix.pings[0]}ms** ]`, true)
-		.addField(':white_check_mark: **Bot ID**', `**${flix.user.id}**` , true)
-		.addField(':white_check_mark: **Servers**', `**➥** [ **${flix.guilds.size}** ]`, true)
-		.addField(':white_check_mark: **Channels**', `**➥** [ **${flix.channels.size}** ]` , true)
-		.addField(':white_check_mark: **Users**',`**➥** [ **${flix.users.size}** ]` , true)
-		.addField(':white_check_mark: **Prefix**', `**➥** [ **${prefix}** ]`, true)
-		.addField(':white_check_mark: **Created At**', `**➥** [ ${Days(flix.user.createdAt)} ]`, true)
+		.setDescription(`__\n__**INFORMATIONS BOT:**\n\n**Bot ID:** \`\`${flix.user.id}\`\`\n**Bot Tag:** \`\`#${flix.user.discriminator}\`\`\n**Bot Ping:** \`\`${flix.pings[0]}ms\`\`\n**Bot Prefix:** \`\`${prefix}\`\`\n**Bot Created at:** \`\`${Days(flix.user.createdAt)}\`\`\n\n**INFORMATIONS GUILDS BOT:**\n\n**Guilds:** \`\`${flix.guilds.size} Guild.\`\`\n**Channels:** \`\`${flix.channels.size} Total\`\` **|** \`\`${flix.channels.filter(c => c.type === 'category').size} Categores\`\` **|** \`\`${flix.channels.filter(c => c.type === 'voice').size} Voice\`\` **|** \`\`${flix.channels.filter(c => c.type === 'text').size} Text\`\`\n**Users:** \`\`${flix.users.size} Total\`\` **|** \`\`${flix.users.filter(m => m.presence.status === 'online').size + flix.users.filter(m => m.presence.status === 'idle').size + flix.users.filter(m => m.presence.status === 'dnd').size} Online\`\` **|** \`\`${flix.users.filter(m => m.presence.status === 'offline').size} Offline\`\``)
+		.setTimestamp()
 		.setFooter(message.author.tag, message.author.avatarURL)
 		
 		message.channel.send(botInfo);
