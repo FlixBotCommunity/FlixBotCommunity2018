@@ -60,6 +60,7 @@ flix.on('message', async function(message) {
 	var args1 = args.slice(1).join(' ');
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id === args[1]));
 	
+	
 	if(command == prefix + 'sug') {
 		var sugChannel = message.guild.channels.find(c => c.id === '485880203827085322');
 		
@@ -123,6 +124,96 @@ flix.on('message', async function(message) {
 	}
 	
 	
+	if(command == prefix + 'server') {
+		var botCount = message.guild.members.filter(m => m.user.bot).size;
+		var memberCount = message.guild.memberCount - botCount;
+		var memberOnline = message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size;
+
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
+		if(!message.guild.member(flix.user).hasPermission('VIEW_AUDIT_LOG')) return message.channel.send(':no_entry: | I dont have **VIEW_AUDIT_LOG** Permission!');
+		message.guild.fetchBans().then(bans => {
+			var bansSize = bans.size;
+
+			if(message.guild.verificationLevel === 0) {
+				var vLvl = 'Very Easy';
+			}else if(message.guild.verificationLevel === 1) {
+				var vLvl = 'Easy';
+			}else if(message.guild.verificationLevel === 2) {
+				var vLvl = 'Medium';
+			}else if(message.guild.verificationLevel === 3) {
+				var vLvl = 'Hard';
+			}else if(message.guild.verificationLevel === 4) {
+				var vLvl = 'Very Hard';
+			}
+
+			var serverInfo = new Discord.RichEmbed()
+			.setColor('AQUA')
+			.setThumbnail(message.guild.iconURL)
+			.setDescription(`**INFORMATION SERVER:**\n\n:chart_with_upwards_trend: Server Name: \`\`${message.guild.name}, ${message.guild.id}\`\`\n:crown: Server Owner: \`\`${message.guild.owner.user.tag}, ${message.guild.owner.user.id}\`\`\n:satellite: Server Type: \`\`${message.guild.region}\`\`\n:date: Server Created At: \`\`${Days(message.guild.createdAt)}\`\`\n:shield: Verification Level: \`\`${vLvl}\`\`\n\n**OTHER INFORMATIONS:**\n\n:busts_in_silhouette: Members: \`\`${memberCount} Members.\`\`\n:robot: Bots: \`\`${botCount} Bots.\`\`\n:green_heart: Online: \`\`${memberOnline} Members.\`\`\n:black_heart: Offline: \`\`${message.guild.members.filter(m => m.presence.status == 'offline').size} Members.\`\`\n:bust_in_silhouette: Last Member: \`\`${Array.from(message.channel.guild.members.values()).sort((a, b) => b.joinedAt - a.joinedAt).map(m => `${m.user.tag}, ${m.id}`).splice(0, 1)}\`\`\n:bar_chart: Channels: \`\`Total ${message.guild.channels.size}\`\` **|** \`\`${message.guild.channels.filter(c => c.type === 'category').size} Categores\`\` **|**  \`\`${message.guild.channels.filter(c => c.type === 'voice').size} Voice\`\` **|** \`\`${message.guild.channels.filter(c => c.type === 'text').size} Text\`\`\n:first_place: Roles: \`\`${message.guild.roles.size} Roles.\`\`\n:name_badge: Bans: \`\`${bansSize} Bans.\`\``)
+			.setTimestamp()
+			.setFooter(message.author.tag, message.author.avatarURL)
+
+			message.channel.send(serverInfo);
+		})
+	}
+	
+	
+	if(command == prefix + 'uptime') {
+		let uptime = flix.uptime;
+
+		let days = 0;
+		let hrs = 0;
+		let min = 0;
+		let sec = 0;
+		let nc = true;
+
+		while (nc) {
+			if (uptime >= 8.64e+7) {
+				days++;
+				uptime -= 8.64e+7;
+				} else if (uptime >= 3.6e+6) {
+					hrs++;
+					uptime -= 3.6e+6;
+					} else if (uptime >= 60000) {
+						min++;
+						uptime -= 60000;
+						} else if (uptime >= 1000) {
+							sec++;
+							uptime -= 1000;
+						}
+						if (uptime < 1000)  nc = false;
+		}
+		message.channel.send(`\`\`${days} days, ${hrs} hrs, ${min} min, ${sec} sec\`\``);
+	}
+	
+	
+	if(command == prefix + 'ping') {
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
+		let pingEmbed = new Discord.RichEmbed()
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setColor('RANDOM')
+		.addField('**Time Taken:**', `${Date.now() - message.createdTimestamp}ms :signal_strength:`)
+		.addField('**WebSocket:**', `${flix.pings[0]}ms :signal_strength:`)
+
+		message.channel.send('Pong ..').then(msg => msg.edit(pingEmbed));
+	}
+	
+	
+	if(command == prefix + 'setname') {
+		if(!devs.includes(message.author.id)) return;
+		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}setname \`\`Bot Name\`\``);
+		if(args1 === flix.user.username) return message.channel.send(':no_entry: | This name is already used for the bot');
+		if(args1.length > 15) return message.channel.send(':no_entry: | The name must less then 15 characters');
+
+		flix.user.setUsername(args1).catch(err => {
+			if(err) {
+				message.channel.send(':no_entry: | **ERROR:** You can change the name of the bot twice every hour');
+			}
+		})
+		message.channel.send(`:white_check_mark: | Successfully \`\`CHANGE\`\` The name of the bot to **${args1}**`);
+	}
+	
+	
 	if(command == prefix + 'bc') {
 		if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(':no_entry: | You dont have **ADMINISTRATOR** Permission!');
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
@@ -176,7 +267,7 @@ flix.on('message', async function(message) {
 					send.on('collect', r => {
 						msgB.delete();
 						message.channel.send(`:timer: | Wait some time to send the message to **${admin.size}** Admins ...`).then(msg => {
-							admin.forEach(a => {
+							admin.forEach(async a => {
 								let bcMessage = new Discord.RichEmbed()
 								.setTitle(`:loudspeaker: ${a.user.username}`)
 								.setColor('GREEN')
@@ -186,11 +277,9 @@ flix.on('message', async function(message) {
 								.setTimestamp()
 								.setFooter(message.author.tag, message.author.avatarURL)
 								
-								a.send(bcMessage);
+								a.send(bcMessage)
+								await msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${admin.size}** Admins!`);
 							})
-							setTimeout(() => {
-								msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${admin.size}** Admins!`);
-							}, 10000)
 						})
 					})
 					dontSend.on('collect', r => {
@@ -229,7 +318,7 @@ flix.on('message', async function(message) {
 					send.on('collect', r => {
 						msgB.delete();
 						message.channel.send(`:timer: | Wait some time to send the message to **${member.size}** Members ...`).then(msg => {
-							member.forEach(m => {
+							member.forEach(async m => {
 								let bcMessage = new Discord.RichEmbed()
 								.setTitle(`:loudspeaker: ${m.user.username}`)
 								.setColor('GREEN')
@@ -239,11 +328,9 @@ flix.on('message', async function(message) {
 								.setTimestamp()
 								.setFooter(message.author.tag, message.author.avatarURL)
 								
-								m.send(bcMessage);
+								m.send(bcMessage)
+								await msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${member.size}** Members!`);
 							})
-							setTimeout(() => {
-								msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${member.size}** Members!`);
-							}, 10000)
 						})
 					})
 					dontSend.on('collect', r => {
@@ -283,7 +370,7 @@ flix.on('message', async function(message) {
 				send.on('collect', r => {
 					msgB.delete();
 					message.channel.send(`:timer: | Wait some time to send the message to **${membersRole.size}** Members ...`).then(msg => {
-						membersRole.forEach(mR => {
+						membersRole.forEach(async mR => {
 							let bcMessage = new Discord.RichEmbed()
 							.setTitle(`:loudspeaker: ${mR.user.username}`)
 							.setColor('GREEN')
@@ -293,11 +380,9 @@ flix.on('message', async function(message) {
 							.setTimestamp()
 							.setFooter(message.author.tag, message.author.avatarURL)
 							
-							mR.send(bcMessage);
+							mR.send(bcMessage)
+							await msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${membersRole.size}** Members!`);
 						})
-						setTimeout(() => {
-							msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${membersRole.size}** Members!`);
-						}, 10000)
 					})
 				})
 				dontSend.on('collect', r => {
@@ -327,7 +412,7 @@ flix.on('message', async function(message) {
 				send.on('collect', r => {
 					msgB.delete();
 					message.channel.send(`:timer: | Wait some time to send the message to **${allB.size}** Members ...`).then(msg => {
-						membersRole.forEach(m => {
+						membersRole.forEach(async m => {
 							let bcMessage = new Discord.RichEmbed()
 							.setTitle(`:loudspeaker: ${m.user.username}`)
 							.setColor('GREEN')
@@ -337,11 +422,9 @@ flix.on('message', async function(message) {
 							.setTimestamp()
 							.setFooter(message.author.tag, message.author.avatarURL)
 							
-							m.send(bcMessage);
+							m.send(bcMessage)
+							await msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${allB.size}** Members!`);
 						})
-						setTimeout(() => {
-							msg.edit(`:white_check_mark: | <@${message.author.id}> Successfully send the message to **${allB.size}** Members!`);
-						}, 10000)
 					})
 				})
 				dontSend.on('collect', r => {
@@ -423,11 +506,9 @@ flix.on('message', async function(message) {
 					give.on('collect', r => {
 						msg.delete();
 						message.channel.send(`:timer: | Now you must wait some time to give **${message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size}** Humans the role **${getRole.name}** ...`).then(message1 => {
-							message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).forEach(m => {
-								message.guild.member(m).addRole(getRole.id);
-								setTimeout(() => {
-									message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give all **Humans** The role **${getRole.name}** .`);
-								}, 10000)
+							message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id) && !m.user.bot).forEach(async m => {
+								message.guild.member(m).addRole(getRole.id)
+								await message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give all **Humans** The role **${getRole.name}** .`);
 							});
 						});
 					});
@@ -458,11 +539,9 @@ flix.on('message', async function(message) {
 					remove.on('collect', r => {
 						msg.delete();
 						message.channel.send(`:timer: | Now you must wait some time to delete from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size}** Humans the role **${getRole.name}** ...`).then(message1 => {
-							message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).forEach(m => {
-								message.guild.member(m).removeRole(getRole.id);
-								setTimeout(() => {
-									message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Humans** .`);
-								}, 10000)
+							message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).forEach(async m => {
+								message.guild.member(m).removeRole(getRole.id)
+								await message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Humans** .`);
 							});
 						});
 					});
@@ -507,11 +586,9 @@ flix.on('message', async function(message) {
 					give.on('collect', r => {
 						msg.delete();
 						message.channel.send(`:timer: | Now you must wait some time to give **${message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).size}** Bots the role **${getRole.name}**...`).then(message1 => {
-							message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).forEach(b => {
-								message.guild.member(b).addRole(getRole.id);
-								setTimeout(() => {
-									message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give all **Bots** The role **${getRole.name}** .`);
-								}, 10000)
+							message.guild.members.filter(b => !message.guild.member(b).roles.has(getRole.id) && b.user.bot).forEach(async b => {
+								message.guild.member(b).addRole(getRole.id)
+								await message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give all **Bots** The role **${getRole.name}** .`);
 							});
 						});
 					});
@@ -542,11 +619,9 @@ flix.on('message', async function(message) {
 					remove.on('collect', r => {
 						msg.delete();
 						message.channel.send(`:timer: | Now you must wait some time to delete from **${message.guild.members.filter(b => message.guild.member(b).roles.has(getRole.id) && b.user.bot).size}** Bots the role **${getRole.name}**...`).then(message1 => {
-							message.guild.members.filter(b => message.guild.member(b).roles.has(getRole.id) && b.user.bot).forEach(b => {
-								message.guild.member(b).removeRole(getRole.id);
-								setTimeout(() => {
-									message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Bots** .`);
-								}, 10000)
+							message.guild.members.filter(b => message.guild.member(b).roles.has(getRole.id) && b.user.bot).forEach(async b => {
+								message.guild.member(b).removeRole(getRole.id)
+								await message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Bots** .`);
 							});
 						});
 					});
@@ -591,11 +666,9 @@ flix.on('message', async function(message) {
 					give.on('collect', r => {
 						msg.delete();
 						message.channel.send(`:timer: | Now you must wait some time to give **${message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).size}** The role **${getRole.name}** ...`).then(message1 => {
-							message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).forEach(m => {
-								message.guild.member(m).addRole(getRole.id);
-								setTimeout(() => {
-									message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give **All** The role **${getRole.name}** .`);
-								}, 10000)
+							message.guild.members.filter(m => !message.guild.member(m).roles.has(getRole.id)).forEach(async m => {
+								message.guild.member(m).addRole(getRole.id)
+								await message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully give **All** The role **${getRole.name}** .`);
 							});
 						});
 					});
@@ -626,11 +699,9 @@ flix.on('message', async function(message) {
 					remove.on('collect', r => {
 						msg.delete();
 						message.channel.send(`:timer: | Now you must wait some time to delete from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).size}** The role **${getRole.name}** ...`).then(message1 => {
-							message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).forEach(m => {
-								message.guild.member(m).removeRole(getRole.id);
-								setTimeout(() => {
-									message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From **All** .`);
-								}, 10000)
+							message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id)).forEach(async m => {
+								message.guild.member(m).removeRole(getRole.id)
+								await message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From **All** .`);
 							});
 						});
 					});
@@ -661,13 +732,78 @@ flix.on('message', async function(message) {
 		
 		message.channel.send(embedR);
 	}
+	
+	
+	if(command == prefix + 'members') {
+		var memberS = message.guild.members.size;
+		if(!args[1] || isNaN(args[1]) || args[1] === '1') {
+			var number = 1;
+			
+			if(memberS > 10) {
+				var more = `\n:sparkles: **More?** ${prefix}members 2`;
+			}else {
+				var more = '__';
+			}
+			
+			let embedS = new Discord.RichEmbed()
+			.setTitle(`:white_check_mark: **${memberS}** Members.`)
+			.setColor('GREEN')
+			.setDescription(`__\n__${message.guild.members.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(0, 10).join('\n')}__\n${more}`)
+			.setTimestamp()
+			.setFooter(message.author.tag, message.author.avatarURL)
+			
+			message.channel.send(embedS);
+		}else if(!isNaN(args[1])) {
+			var number = 1;
+			
+			if(message.guild.members.size > 10) {
+				var more = `choose **1** To **${Math.round(memberS / 10) + 1}**`;
+			}else {
+				var more = 'This server have **1** Page only.';
+			}
+			
+			if(Math.round(args[1].replace('-', '')) * 10 - 9 > memberS) return message.channel.send(`:no_entry: | I couldn\'t find the page. ${more}`);
+			
+			let embedS = new Discord.RichEmbed()
+			.setTitle(`:white_check_mark: **${memberS}** Members.`)
+			.setColor('GREEN')
+			.setDescription(`__\n__${message.guild.members.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(10 * Math.round(args[1].replace('-', '')) - 10, 10 * Math.round(args[1].replace('-', ''))).join('\n')}\n\n:sparkles: **More?** ${prefix}members ${Math.round(args[1].replace('-', '')) + 1}`)
+			.setTimestamp()
+			.setFooter(message.author.tag, message.author.avatarURL)
+			
+			message.channel.send(embedS);
+		}
+	}
+	
+	
+	if(command == prefix + 'member-info') {
+		if(!args[1]) return message.channel.send(`:no_entry: | Please enter the member number. \`\`If you want to know how to get the member number please type ${prefix}members (page)\`\``);
+		if(isNaN(args[1])) return message.channel.send(`:no_entry: | Please enter the member number. \`\`If you want to know how to get the member number please type ${prefix}members (page)\`\``);
+		if(args[1] > message.guild.members.size) return message.channel.send(`:no_entry: | I couldn\'t find the user. Please selecte number from 1 to ${message.guild.members.size}`);
+		
+		let memberInfo = new Discord.RichEmbed()
+		.setTitle(`:white_check_mark: Informations about **${message.guild.members.map(m => m.user.tag).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}**`)
+		.setThumbnail(`${message.guild.members.map(m => m.user.avatarURL).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}`)
+		.setColor('GREEN')
+		.setDescription(`__\n__**INFORMATIONS USER:**\n\n**User ID:** \`\`${message.guild.members.map(m => m.user.id).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}\`\`\n**User Tag:** \`\`#${message.guild.members.map(m => m.user.discriminator).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}\`\`\n**User Created at:** \`\`${message.guild.members.map(m => Days(m.user.createdAt)).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}\`\`\n**User Joined at:** \`\`${message.guild.members.map(m => Days(m.joinedAt)).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}\`\`\n**User Status:** \`\`${message.guild.members.map(m => m.user.presence.status).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}\`\`\n**User Roles Amount:** \`\`${message.guild.members.map(m => m.roles.size - 1).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))} Role.\`\`\n**User Bot:** \`\`${message.guild.members.map(m => m.user.bot).slice(Math.round(args[1].replace('-', '')) - 1, Math.round(args[1].replace('-', '')))}\`\``)
+		.setTimestamp()
+		.setFooter(message.author.tag, message.author.avatarURL)
+		
+		message.channel.send(memberInfo);
+	}
 });
+function Days(date) {
+	let now = new Date();
+	let diff = now.getTime() - date.getTime();
+	let days = Math.floor(diff / 86400000);
+	return days + (days == 1 ? " day" : " days") + " ago";
+}
 
 
 flix.on('messageDelete', message => {
-
 	if(message.author.bot) return;
 	if(message.channel.type === 'dm') return;
+	
 	if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
 	if(!message.guild.member(flix.user).hasPermission('MANAGE_MESSAGES')) return;
 
