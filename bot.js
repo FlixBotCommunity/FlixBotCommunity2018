@@ -467,9 +467,9 @@ flix.on('message', async function(message) {
 		if(!userM && args[1] !== 'humans' && args[1] !== 'bots' && args[1] !== 'all') return message.channel.send(roleCommand);
 
 		if(userM) {
-			var argsRole = message.content.toLowerCase().split(' ').slice(2);
-		}else if(args[1] === 'humans' || args[1] === 'bots' || args[1] === 'all') {
-			var argsRole = message.content.toLowerCase().split(' ').slice(3);
+			var argsRole = args[2];
+		}else if(!userM || args[1] === 'humans' || args[1] === 'bots' || args[1] === 'all') {
+			var argsRole = args[3];
 		}
 
 		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === argsRole) || message.guild.roles.find(r => r.name.toLowerCase().includes(argsRole));
