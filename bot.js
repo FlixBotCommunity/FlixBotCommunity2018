@@ -1084,6 +1084,8 @@ flix.on('roleUpdate', (oldRole, newRole) => {
 
 // Channels Log
 flix.on('channelCreate', channel => {
+	if(!channel.guild) return;
+	
 	if(!channel.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
 	if(!channel.guild.member(flix.user).hasPermission('VIEW_AUDIT_LOG')) return;
 
@@ -1116,6 +1118,8 @@ flix.on('channelCreate', channel => {
 	})
 });
 flix.on('channelDelete', channel => {
+	if(!channel.guild) return;
+	
 	if(!channel.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
 	if(!channel.guild.member(flix.user).hasPermission('VIEW_AUDIT_LOG')) return;
 
