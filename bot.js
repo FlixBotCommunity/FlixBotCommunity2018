@@ -79,13 +79,18 @@ flix.on('message', async function(message) {
 				message.channel.send(`:x: | <@${message.author.id}> لم تكتب الرقم بالوقت المناسب`).then(msge => msge.delete(5000));
 			});
 			filter.then(msg2 => {
-				message.channel.send(`:white_check_mark: | Successfully verifed <@${message.author.id}> Account.`).then(msgA => msgA.delete(5000));
 				msg.delete();
-				msg2.delete();
 				message.guild.member(message.author).addRole(flix.id);
 				message.author.send(':white_check_mark: | Successfully verifed your account.');
 			});
 		});
+	}
+	
+	
+	if(message.channel.id === '495499134669684746') {
+		if(!message.content.startsWith(prefix + 'verify')) {
+			message.delete();
+		}
 	}
 	
 	
