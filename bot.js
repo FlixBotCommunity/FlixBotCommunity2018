@@ -74,11 +74,13 @@ flix.on('message', async function(message) {
 		message.channel.send(`:robot: | <@${message.author.id}> الرجاء قم بكتابة الرقم التالي **${numbers[x]}** معك 10 ثواني قبل الالغاء`).then(msg => {
 			var filter = message.channel.awaitMessages(msgs => msgs.author.id === message.author.id && msgs.content == numbers2[x], { max: 1, time: 10000, errors: ['time'] });
 			filter.catch(err => {
+				msg.delete();
 				message.delete();
-				msg.edit(`:x: | <@${message.author.id}> لم تكتب الرقم بالوقت المناسب`).then(msge => msge.delete(5000));
+				message.channel.send(`:x: | <@${message.author.id}> لم تكتب الرقم بالوقت المناسب`).then(msge => msge.delete(5000));
 			});
 			filter.then(msg2 => {
-				msg.edit(`:white_check_mark: | Successfully verifed <@${message.author.id}> Account.`);
+				message.channel.send(`:white_check_mark: | Successfully verifed <@${message.author.id}> Account.`);
+				msg.delete();
 				message.delete();
 				message.guild.member(message.author).addRole(flix.id);
 				message.author.send(':white_check_mark: | Successfully verifed your account.');
