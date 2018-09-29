@@ -133,9 +133,7 @@ flix.on('message', async function(message) {
 					.setTimestamp()
 					.setFooter(message.author.tag, message.author.avatarURL)
 					
-					sugChannel.send(newSug).then(msg => {
-						msg.react('👍').then(() => msg.react('👎'));
-					})
+					sugChannel.send(newSug);
 				});
 				dontSend.on('collect', r => {
 					message.channel.send(`:no_entry: | <@${message.author.id}> تم الغاء اقتراحك بنجاح`).then(msg => msg.delete(5000));
