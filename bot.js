@@ -62,15 +62,14 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'verify') {
-		var flix = message.guild.roles.find(r => r.id === '');
+		var flix = message.guild.roles.find(r => r.id === '473143014332694528');
 		var numbers = ['4857', '5363', '8249', '5367', '1317', '5386', '4536', '0683', '3353', '2467', '2462', '5424', '6284', '8274', '4688', '8278', '2874', '8927', '1356', '8927', '2764', '7653', '5842', '4483', '2579', '6326', '2562', '4762', '1794', '0984', '2874', '8234', '7265', '7644', '7442', '0145', '2758', '2785', '8725', '8258', '8975', '8624', '2785', '2775'];
 		var numbers2 = ['4857', '5363', '8249', '5367', '1317', '5386', '4536', '0683', '3353', '2467', '2462', '5424', '6284', '8274', '4688', '8278', '2874', '8927', '1356', '8927', '2764', '7653', '5842', '4483', '2579', '6326', '2562', '4762', '1794', '0984', '2874', '8234', '7265', '7644', '7442', '0145', '2758', '2785', '8725', '8258', '8975', '8624', '2785', '2775'];
 		
-		if(message.channel.id !== '488727312846815232') return;
+		if(message.channel.id !== '495499134669684746') return;
 		if(message.member.roles.has(flix.id)) return;
 		
 		var x = Math.floor(Math.random() * numbers.length);
-		var member = message.author.id === message.author.id;
 		
 		message.channel.send(`:robot: | <@${message.author.id}> الرجاء قم بكتابة الرقم التالي **${numbers[x]}** معك 10 ثواني قبل الالغاء`).then(msg => {
 			var filter = message.channel.awaitMessages(msgs => msgs.author.id === message.author.id && msgs.content == numbers2[x], { max: 1, time: 10000, errors: ['time'] });
@@ -79,18 +78,12 @@ flix.on('message', async function(message) {
 				msg.edit(`:x: | <@${message.author.id}> لم تكتب الرقم بالوقت المناسب`).then(msge => msge.delete(5000));
 			});
 			filter.then(msg2 => {
-					msg.edit(`:white_check_mark: | Successfully verifed <@${message.author.id}> Account.`);
-					message.delete();
-					message.guild.member(message.author).addRole(flix.id);
-					message.author.send(':white_check_mark: | Successfully verifed your account.');
+				msg.edit(`:white_check_mark: | Successfully verifed <@${message.author.id}> Account.`);
+				message.delete();
+				message.guild.member(message.author).addRole(flix.id);
+				message.author.send(':white_check_mark: | Successfully verifed your account.');
 			});
 		});
-	}
-	
-	
-	if(command == prefix + 'roleid') {
-		var getRole = message.guild.channels.find(r => r.name.toLowerCase().includes(args[1]));
-		message.channel.send(getRole.id);
 	}
 	
 	
