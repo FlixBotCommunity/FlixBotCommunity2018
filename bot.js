@@ -4,6 +4,7 @@ const fs = require('fs');
 const ms = require('ms');
 const moment = require('moment');
 const prefix = '$';
+const devs = ['346629187504832513'];
 
 var cds = new Set();
 var cdv = new Set();
@@ -536,9 +537,9 @@ flix.on('message', async function(message) {
 		if(!userM && args[1] !== 'humans' && args[1] !== 'bots' && args[1] !== 'all') return message.channel.send(roleCommand);
 
 		if(userM) {
-			var argsRole = args[2];
+			var argsRole = args.slice(2).join(' ');
 		}else if(!userM || args[1] === 'humans' || args[1] === 'bots' || args[1] === 'all') {
-			var argsRole = args[3];
+			var argsRole = args.slice(3).join(' ');
 		}
 
 		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === argsRole) || message.guild.roles.find(r => r.name.toLowerCase().includes(argsRole));
