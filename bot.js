@@ -802,7 +802,7 @@ flix.on('message', async function(message) {
 	
 	if(command == prefix + 'role-members') {
 		if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(':no_entry: | You dont have **MANAGE_ROLES** Permission!');
-		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args[1]) || message.guild.roles.find(r => r.name.toLowerCase().includes(args[1]));
+		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args[1]) || message.guild.roles.find(r => r.name.toLowerCase().includes(args.slice(1).join(' ')));
 		if(!args[1]) return message.channel.send(`**➥ Useage:** ${prefix}role-members \`\`<ROLE>\`\` <PAGE>`);
 		if(!getRole) return message.channel.send(`:no_entry: | I couldn\'t find the role!`);
 
