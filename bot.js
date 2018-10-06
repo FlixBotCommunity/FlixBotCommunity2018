@@ -61,7 +61,6 @@ flix.on('ready', () => {
 });
 
 flix.on('message', async function(message) {
-	
 	if(message.author.bot) return;
 	if(message.channel.type === 'dm') return;
 	
@@ -72,12 +71,14 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'verify') {
-		var flix = message.guild.roles.find(r => r.name === '• FlixCommunity');
+		if(message.guild.member(flix.user).hasPermission('MANAGE_ROLES')) return;
+		
+		var flixRole = message.guild.roles.find(r => r.name === '• FlixCommunity');
 		var numbers = ['4857', '5363', '8249', '5367', '1317', '5386', '4536', '0683', '3353', '2467', '2462', '5424', '6284', '8274', '4688', '8278', '2874', '8927', '1356', '8927', '2764', '7653', '5842', '4483', '2579', '6326', '2562', '4762', '1794', '0984', '2874', '8234', '7265', '7644', '7442', '0145', '2758', '2785', '8725', '8258', '8975', '8624', '2785', '2775', '9835'];
 		var numbers2 = ['4857', '5363', '8249', '5367', '1317', '5386', '4536', '0683', '3353', '2467', '2462', '5424', '6284', '8274', '4688', '8278', '2874', '8927', '1356', '8927', '2764', '7653', '5842', '4483', '2579', '6326', '2562', '4762', '1794', '0984', '2874', '8234', '7265', '7644', '7442', '0145', '2758', '2785', '8725', '8258', '8975', '8624', '2785', '2775', '9835'];
 		
 		if(message.channel.id !== '495499134669684746') return;
-		if(message.member.roles.has(flix.id)) return;
+		if(message.member.roles.has(flixRole.id)) return;
 		if(cdv.has(message.author.id)) return message.delete();
 		
 		var x = Math.floor(Math.random() * numbers.length);
@@ -94,7 +95,7 @@ flix.on('message', async function(message) {
 			filter.then(msg2 => {
 				cdv.delete(message.author.id);
 				msg.delete();
-				message.guild.member(message.author).addRole(flix.id);
+				message.guild.member(message.author).addRole(flixRole.id);
 				message.author.send(':white_check_mark: | Successfully verifed your account.');
 			});
 		});
@@ -109,6 +110,7 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'sug') {
+		if(message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
 		var sugChannel = message.guild.channels.find(c => c.id === '485880203827085322');
 		
 		if(!sugChannel) return message.channel.send(':no_entry: | لا يوجد روم للاقتراحات');
@@ -169,6 +171,40 @@ flix.on('message', async function(message) {
 	}
 	
 	
+	if(command == prefix + 'server') {
+		var botCount = message.guild.members.filter(m => m.user.bot).size;
+		var memberCount = message.guild.memberCount - botCount;
+		var memberOnline = message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size;
+
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
+		if(!message.guild.member(flix.user).hasPermission('VIEW_AUDIT_LOG')) return message.channel.send(':no_entry: | I dont have **VIEW_AUDIT_LOG** Permission!');
+		message.guild.fetchBans().then(bans => {
+			var bansSize = bans.size;
+
+			if(message.guild.verificationLevel === 0) {
+				var vLvl = 'Very Easy';
+			}else if(message.guild.verificationLevel === 1) {
+				var vLvl = 'Easy';
+			}else if(message.guild.verificationLevel === 2) {
+				var vLvl = 'Medium';
+			}else if(message.guild.verificationLevel === 3) {
+				var vLvl = 'Hard';
+			}else if(message.guild.verificationLevel === 4) {
+				var vLvl = 'Very Hard';
+			}
+
+			var serverInfo = new Discord.RichEmbed()
+			.setColor('AQUA')
+			.setThumbnail(message.guild.iconURL)
+			.setDescription(`**INFORMATION SERVER:**\n\n:chart_with_upwards_trend: Server Name: \`\`${message.guild.name}, ${message.guild.id}\`\`\n:crown: Server Owner: \`\`${message.guild.owner.user.tag}, ${message.guild.owner.user.id}\`\`\n:satellite: Server Type: \`\`${message.guild.region}\`\`\n:date: Server Created At: \`\`${Days(message.guild.createdAt)}\`\`\n:shield: Verification Level: \`\`${vLvl}\`\`\n\n**OTHER INFORMATIONS:**\n\n:busts_in_silhouette: Members: \`\`${memberCount} Members.\`\`\n:robot: Bots: \`\`${botCount} Bots.\`\`\n:green_heart: Online: \`\`${memberOnline} Members.\`\`\n:black_heart: Offline: \`\`${message.guild.members.filter(m => m.presence.status == 'offline').size} Members.\`\`\n:bust_in_silhouette: Last Member: \`\`${Array.from(message.channel.guild.members.values()).sort((a, b) => b.joinedAt - a.joinedAt).map(m => `${m.user.tag}, ${m.id}`).splice(0, 1)}\`\`\n:bar_chart: Channels: \`\`Total ${message.guild.channels.size}\`\` **|** \`\`${message.guild.channels.filter(c => c.type === 'category').size} Categores\`\` **|**  \`\`${message.guild.channels.filter(c => c.type === 'voice').size} Voice\`\` **|** \`\`${message.guild.channels.filter(c => c.type === 'text').size} Text\`\`\n:first_place: Roles: \`\`${message.guild.roles.size} Roles.\`\`\n:name_badge: Bans: \`\`${bansSize} Bans.\`\``)
+			.setTimestamp()
+			.setFooter(message.author.tag, message.author.avatarURL)
+
+			message.channel.send(serverInfo);
+		})
+	}
+	
+	
 	if(command == prefix + 'bot') {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
 		
@@ -193,21 +229,21 @@ flix.on('message', async function(message) {
 		let sec = 0;
 		let nc = true;
 
-		while (nc) {
-			if (uptime >= 8.64e+7) {
+		while(nc) {
+			if(uptime >= 8.64e+7) {
 				days++;
 				uptime -= 8.64e+7;
-				} else if (uptime >= 3.6e+6) {
+				}else if(uptime >= 3.6e+6) {
 					hrs++;
 					uptime -= 3.6e+6;
-					} else if (uptime >= 60000) {
+					}else if(uptime >= 60000) {
 						min++;
 						uptime -= 60000;
-						} else if (uptime >= 1000) {
+						}else if(uptime >= 1000) {
 							sec++;
 							uptime -= 1000;
 						}
-						if (uptime < 1000)  nc = false;
+						if(uptime < 1000)  nc = false;
 		}
 		message.channel.send(`\`\`${days} days, ${hrs} hrs, ${min} min, ${sec} sec\`\``);
 	}
@@ -265,6 +301,7 @@ flix.on('message', async function(message) {
 	
 	if(command == prefix + 'bc') {
 		if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(':no_entry: | You dont have **ADMINISTRATOR** Permission!');
+		
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
 		
 		let bcCommand = new Discord.RichEmbed()
@@ -486,10 +523,11 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'role') {
-		if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(':no_entry: | You dont have **MANAGE_ROLES** Permission!');
+		if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(':no_entry: | You dont have **MANAGE_ROLES** Permission!');
+		
 		if(!message.guild.member(flix.user).hasPermission('MANAGE_ROLES')) return message.channel.send(':no_entry: | I dont have **MANAGE_ROLES** Permission!');
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
-
+		
 		let roleCommand = new Discord.RichEmbed()
 		.setTitle(':white_check_mark: Role Command.')
 		.setColor('GREEN')
