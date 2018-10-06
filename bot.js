@@ -108,6 +108,11 @@ flix.on('message', async function(message) {
 	}
 	
 	
+	if(command == 'test1') {
+		message.reply('.');
+	}
+	
+	
 	if(command == prefix + 'sug') {
 		var sugChannel = message.guild.channels.find(c => c.id === '485880203827085322');
 		
@@ -166,6 +171,11 @@ flix.on('message', async function(message) {
 		setTimeout(() => {
 			cds.delete(message.author.id);
 		}, 300000);
+	}
+	
+	
+	if(command == 'test2') {
+		message.reply('.');
 	}
 	
 	
