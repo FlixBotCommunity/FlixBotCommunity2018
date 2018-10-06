@@ -169,40 +169,6 @@ flix.on('message', async function(message) {
 	}
 	
 	
-	if(command == prefix + 'server') {
-		var botCount = message.guild.members.filter(m => m.user.bot).size;
-		var memberCount = message.guild.memberCount - botCount;
-		var memberOnline = message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size;
-
-		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
-		if(!message.guild.member(flix.user).hasPermission('VIEW_AUDIT_LOG')) return message.channel.send(':no_entry: | I dont have **VIEW_AUDIT_LOG** Permission!');
-		message.guild.fetchBans().then(bans => {
-			var bansSize = bans.size;
-
-			if(message.guild.verificationLevel === 0) {
-				var vLvl = 'Very Easy';
-			}else if(message.guild.verificationLevel === 1) {
-				var vLvl = 'Easy';
-			}else if(message.guild.verificationLevel === 2) {
-				var vLvl = 'Medium';
-			}else if(message.guild.verificationLevel === 3) {
-				var vLvl = 'Hard';
-			}else if(message.guild.verificationLevel === 4) {
-				var vLvl = 'Very Hard';
-			}
-
-			var serverInfo = new Discord.RichEmbed()
-			.setColor('AQUA')
-			.setThumbnail(message.guild.iconURL)
-			.setDescription(`**INFORMATION SERVER:**\n\n:chart_with_upwards_trend: Server Name: \`\`${message.guild.name}, ${message.guild.id}\`\`\n:crown: Server Owner: \`\`${message.guild.owner.user.tag}, ${message.guild.owner.user.id}\`\`\n:satellite: Server Type: \`\`${message.guild.region}\`\`\n:date: Server Created At: \`\`${Days(message.guild.createdAt)}\`\`\n:shield: Verification Level: \`\`${vLvl}\`\`\n\n**OTHER INFORMATIONS:**\n\n:busts_in_silhouette: Members: \`\`${memberCount} Members.\`\`\n:robot: Bots: \`\`${botCount} Bots.\`\`\n:green_heart: Online: \`\`${memberOnline} Members.\`\`\n:black_heart: Offline: \`\`${message.guild.members.filter(m => m.presence.status == 'offline').size} Members.\`\`\n:bust_in_silhouette: Last Member: \`\`${Array.from(message.channel.guild.members.values()).sort((a, b) => b.joinedAt - a.joinedAt).map(m => `${m.user.tag}, ${m.id}`).splice(0, 1)}\`\`\n:bar_chart: Channels: \`\`Total ${message.guild.channels.size}\`\` **|** \`\`${message.guild.channels.filter(c => c.type === 'category').size} Categores\`\` **|**  \`\`${message.guild.channels.filter(c => c.type === 'voice').size} Voice\`\` **|** \`\`${message.guild.channels.filter(c => c.type === 'text').size} Text\`\`\n:first_place: Roles: \`\`${message.guild.roles.size} Roles.\`\`\n:name_badge: Bans: \`\`${bansSize} Bans.\`\``)
-			.setTimestamp()
-			.setFooter(message.author.tag, message.author.avatarURL)
-
-			message.channel.send(serverInfo);
-		})
-	}
-	
-	
 	if(command == prefix + 'bot') {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
 		
