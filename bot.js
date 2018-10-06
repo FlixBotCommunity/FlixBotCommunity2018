@@ -108,11 +108,6 @@ flix.on('message', async function(message) {
 	}
 	
 	
-	if(command == 'test1') {
-		message.reply('.');
-	}
-	
-	
 	if(command == prefix + 'sug') {
 		var sugChannel = message.guild.channels.find(c => c.id === '485880203827085322');
 		
@@ -174,11 +169,6 @@ flix.on('message', async function(message) {
 	}
 	
 	
-	if(command == 'test2') {
-		message.reply('.');
-	}
-	
-	
 	if(command == prefix + 'bot') {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
 		
@@ -191,6 +181,11 @@ flix.on('message', async function(message) {
 		.setFooter(message.author.tag, message.author.avatarURL)
 		
 		message.channel.send(botInfo);
+	}
+	
+	
+	if(command == 'test2') {
+		message.reply('.');
 	}
 	
 	
