@@ -184,11 +184,6 @@ flix.on('message', async function(message) {
 	}
 	
 	
-	if(command == 'test2') {
-		message.reply('.');
-	}
-	
-	
 	if(command == prefix + 'uptime') {
 		let uptime = flix.uptime;
 
@@ -219,7 +214,6 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'ping') {
-		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
 		let pingEmbed = new Discord.RichEmbed()
 		.setAuthor(message.author.tag, message.author.avatarURL)
 		.setColor('RANDOM')
