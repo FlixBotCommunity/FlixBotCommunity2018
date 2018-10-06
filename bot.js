@@ -108,7 +108,7 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'sug') {
-		if(message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
 		var sugChannel = message.guild.channels.find(c => c.id === '485880203827085322');
 		
 		if(!sugChannel) return message.channel.send(':no_entry: | لا يوجد روم للاقتراحات');
@@ -170,6 +170,8 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'server') {
+		if(!message.guild.member(flix.user).hasPermission('ADMINISTRATOR')) return;
+		
 		var botCount = message.guild.members.filter(m => m.user.bot).size;
 		var memberCount = message.guild.memberCount - botCount;
 		var memberOnline = message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size;
@@ -248,6 +250,8 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'ping') {
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
+		
 		let pingEmbed = new Discord.RichEmbed()
 		.setAuthor(message.author.tag, message.author.avatarURL)
 		.setColor('RANDOM')
@@ -274,6 +278,8 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'discrim') {
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
+		
 		if(args[1]) {
 			var Tag = args[1];
 		}else if(!args[1]) {
@@ -298,6 +304,7 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'bc') {
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
 		if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(':no_entry: | You dont have **ADMINISTRATOR** Permission!');
 		
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
@@ -801,6 +808,8 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'role-members') {
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
+		
 		if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(':no_entry: | You dont have **MANAGE_ROLES** Permission!');
 		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args[1]) || message.guild.roles.find(r => r.name.toLowerCase().includes(args.slice(1).join(' ')));
 		if(!args[1]) return message.channel.send(`**➥ Useage:** ${prefix}role-members \`\`<ROLE>\`\` <PAGE>`);
@@ -849,6 +858,8 @@ flix.on('message', async function(message) {
 	
 	
     if(command == prefix + 'members') {
+	    if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
+	    
         var memberS = message.guild.members.size;
 		var memberAmount = 10;
         if(!args[1] || isNaN(args[1]) || args[1] === '1') {
@@ -892,6 +903,8 @@ flix.on('message', async function(message) {
 	
 	
    if(command == prefix + 'info-member') {
+	   if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
+	   
        if(!args[1]) return message.channel.send(`:no_entry: | Please enter the member number. \`\`If you want to know how to get the member number please type ${prefix}members (page)\`\``);
        if(isNaN(args[1])) return message.channel.send(`:no_entry: | Please enter the member number. \`\`If you want to know how to get the member number please type ${prefix}members (page)\`\``);
        if(args[1] > message.guild.members.size) return message.channel.send(`:no_entry: | I couldn\'t find the user. Please selecte number from 1 to ${message.guild.members.size}`);
@@ -910,6 +923,8 @@ flix.on('message', async function(message) {
 	
 	
 	if(command == prefix + 'find') {
+		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
+		
 		if(!args[1]) return message.channel.send(`**➥ Useage:** ${prefix}find \`\`<CHARACTERS>\`\` <PAGE>`);
 		var memberS = message.guild.members.filter(m => m.user.username.toLowerCase().includes(args[1]));
 		if(args[1].length > 50) return message.channel.send(':no_entry: | The characters must less then 50.');
