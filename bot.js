@@ -831,7 +831,7 @@ flix.on('message', async function(message) {
 		}else if(getRole && !isNaN(args[2])) {
 			var number = 1;
 			if(memberR.size > 10) {
-				var more = `choose **1** To **${Math.round(memberR.size / 10)}**`;
+				var more = `choose **1** To **${Math.round(memberR.size / 10) + 1}**`;
 			}else {
 				var more = 'This server have **1** Page only.';
 			}
