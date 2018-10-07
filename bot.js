@@ -809,49 +809,40 @@ flix.on('message', async function(message) {
 	
 	if(command == prefix + 'role-members') {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
-		
-		if(!message.member.hasPermission('MANAGE_ROLES')) return message.channel.send(':no_entry: | You dont have **MANAGE_ROLES** Permission!');
-		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args[1]) || message.guild.roles.find(r => r.name.toLowerCase().includes(args.slice(1).join(' ')));
+		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args[1]) || message.guild.roles.find(r => r.name.toLowerCase().includes(args[1]));
 		if(!args[1]) return message.channel.send(`**➥ Useage:** ${prefix}role-members \`\`<ROLE>\`\` <PAGE>`);
 		if(!getRole) return message.channel.send(`:no_entry: | I couldn\'t find the role!`);
-
 		var memberR = message.guild.members.filter(m => m.roles.has(getRole.id));
-
 		if(getRole && !args[2] || isNaN(args[2]) || args[2] === '1') {
 			var number = 1;
-
 			if(memberR.size > 10) {
-				var more = `\n__:sparkles: **More?** \`\`${prefix}members 2\`\` (${Math.round(memberR.size / 10) + 1} pages)`;
+				var more = `\n__:sparkles: **More?** \`\`${prefix}role-members ${args[1]} 2\`\` (${Math.round(memberR.size / 10) + 1} pages)`;
 			}else {
 				var more = '__';
 			}
-
 			let embedS = new Discord.RichEmbed()
 			.setTitle(`:white_check_mark: **${memberR.size}** Members have role **${getRole.name}**`)
 			.setColor('GREEN')
 			.setDescription(`__\n__${memberR.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(0, 10).join('\n')}__\n${more}`)
 			.setTimestamp()
 			.setFooter(message.author.tag, message.author.avatarURL)
-
+			
 			message.channel.send(embedS);
 		}else if(getRole && !isNaN(args[2])) {
 			var number = 1;
-
 			if(memberR.size > 10) {
 				var more = `choose **1** To **${Math.round(memberR.size / 10)}**`;
 			}else {
 				var more = 'This server have **1** Page only.';
 			}
-
 			if(Math.round(args[2].replace('-', '')) * 10 - 9 > memberR.size) return message.channel.send(`:no_entry: | I couldn\'t find the page. ${more}`);
-
 			let embedS = new Discord.RichEmbed()
-			.setTitle(`:white_check_mark: **${memberS}** Members.`)
+			.setTitle(`:white_check_mark: **${memberR.size}** Members have role **${getRole.name}**`)
 			.setColor('GREEN')
-			.setDescription(`__\n__${memberR.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(10 * Math.round(args[2].replace('-', '')) - 10, 10 * Math.round(args[2].replace('-', ''))).join('\n')}\n\n:sparkles: **More?** \`\`${prefix}members ${Math.round(args[2].replace('-', ''))}\`\` (${Math.round(memberR.size / 10) + 1} pages)`)
+			.setDescription(`__\n__${memberR.map(m => `**${number++}.** \`\`${m.user.tag}\`\``).slice(10 * Math.round(args[2].replace('-', '')) - 10, 10 * Math.round(args[2].replace('-', ''))).join('\n')}\n\n:sparkles: **More?** \`\`${prefix}role-members ${args[1]} ${Math.round(args[2].replace('-', '')) + 1}\`\` (${Math.round(memberR.size / 10) + 1} pages)`)
 			.setTimestamp()
 			.setFooter(message.author.tag, message.author.avatarURL)
-
+			
 			message.channel.send(embedS);
 		}
 	}
