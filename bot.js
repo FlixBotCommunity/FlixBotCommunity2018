@@ -976,14 +976,6 @@ flix.on('guildMemberRemove', member => {
 flix.on('voiceStateUpdate', (oldVoice, newVoice) => {
 	oldVoice.guild.channels.find(c => c.id == '500331453461299210').setName(`● Voice Online: [${oldVoice.guild.members.filter(m => m.voiceChannel && !m.user.bot).size}]`);
 });
-flix.on('presenceUpdate', (oldMember, newMember) => {
-	if(oldMember.presence.status == 'offline' && newMember.presence.status == 'online' || newMember.presence.status == 'idle' || newMember.presence.status == 'dnd') {
-		flix.channels.find(c => c.id == '500341306468466718').setName(`● Member Online: [${oldMember.guild.members.filter(m => m.presence.status == 'online').size + oldMember.guild.members.filter(m => m.presence.status == 'idle').size + oldMember.guild.members.filter(m => m.presence.status == 'dnd').size}]`);
-	}
-	if(newMember.presence.status == 'offline' && oldMember.presence.status == 'online' || oldMember.presence.status == 'idle' || oldMember.presence.status == 'dnd') {
-		flix.channels.find(c => c.id == '500341306468466718').setName(`● Member Online: [${oldMember.guild.members.filter(m => m.presence.status == 'online').size + oldMember.guild.members.filter(m => m.presence.status == 'idle').size + oldMember.guild.members.filter(m => m.presence.status == 'dnd').size}]`);
-	}
-});
 
 
 flix.on('messageDelete', message => {
