@@ -68,7 +68,6 @@ flix.on('message', async function(message) {
 	var args = message.content.toLowerCase().split(' ');
 	var args1 = args.slice(1).join(' ');
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id === args[1]));
-	var noFa2dh = command;
 	
 	if(command == prefix + 'verify') {
 		var flixRole = message.guild.roles.find(r => r.name == '• FlixCommunity');
@@ -978,7 +977,12 @@ flix.on('voiceStateUpdate', (oldVoice, newVoice) => {
 	oldVoice.guild.channels.find(c => c.id == '500331453461299210').setName(`● Voice Online: [${oldVoice.guild.members.filter(m => m.voiceChannel && !m.user.bot).size}]`);
 });
 flix.on('presenceUpdate', (oldMember, newMember) => {
-	flix.channels.find(c => c.id == '500341306468466718').setName(`● Member Online: [${oldMember.guild.members.filter(m => m.presence.status == 'online').size + oldMember.guild.members.filter(m => m.presence.status == 'idle').size + oldMember.guild.members.filter(m => m.presence.status == 'dnd').size}]`);
+	if(oldMember.presence.status == 'offline' && newMember.presence.status == 'online' || newMember.presence.status == 'idle' || newMember.presence.status == 'dnd') {
+		flix.channels.find(c => c.id == '500341306468466718').setName(`● Member Online: [${oldMember.guild.members.filter(m => m.presence.status == 'online').size + oldMember.guild.members.filter(m => m.presence.status == 'idle').size + oldMember.guild.members.filter(m => m.presence.status == 'dnd').size}]`);
+	}
+	if(newMember.presence.status == 'offline' && oldMember.presence.status == 'online' || oldMember.presence.status == 'idle' || oldMember.presence.status == 'dnd') {
+		flix.channels.find(c => c.id == '500341306468466718').setName(`● Member Online: [${oldMember.guild.members.filter(m => m.presence.status == 'online').size + oldMember.guild.members.filter(m => m.presence.status == 'idle').size + oldMember.guild.members.filter(m => m.presence.status == 'dnd').size}]`);
+	}
 });
 
 
