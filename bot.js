@@ -68,7 +68,7 @@ flix.on('message', async function(message) {
 	var args = message.content.toLowerCase().split(' ');
 	var args1 = args.slice(1).join(' ');
 	var userM = message.guild.member(message.mentions.users.first() || message.guild.members.find(m => m.id === args[1]));
-	
+	var noFa2dh = command;
 	
 	if(command == prefix + 'verify') {
 		var flixRole = message.guild.roles.find(r => r.name == '• FlixCommunity');
