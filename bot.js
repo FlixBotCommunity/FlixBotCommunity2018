@@ -978,7 +978,7 @@ flix.on('voiceStateUpdate', (oldVoice, newVoice) => {
 	oldVoice.guild.channels.find(c => c.id == '500331453461299210').setName(`● Voice Online: [${oldVoice.guild.members.filter(m => m.voiceChannel && !m.user.bot).size}]`);
 });
 flix.on('presenceUpdate', (oldMember, newMember) => {
-	flix.channels.find(c => c.id == '488696884211351552').setName(`● Member Online: [${oldMember.guild.members.filter(m => m.presence.status == 'online').size + oldMember.guild.members.filter(m => m.presence.status == 'idle').size + oldMember.guild.members.filter(m => m.presence.status == 'dnd').size}]`);
+	flix.channels.find(c => c.id == '500341306468466718').setName(`● Member Online: [${oldMember.guild.members.filter(m => m.presence.status == 'online').size + oldMember.guild.members.filter(m => m.presence.status == 'idle').size + oldMember.guild.members.filter(m => m.presence.status == 'dnd').size}]`);
 });
 
 
