@@ -968,6 +968,17 @@ function Days(date) {
 }
 
 
+flix.on('guildMemberAdd', member => {
+	member.guild.channels.find(c => c.id == '500330822667206658').setName(`➥ Member Count ${member.guild.members.filter(m => !m.user.bot).size}`);
+});
+flix.on('guildMemberRemove', member => {
+	member.guild.channels.find(c => c.id == '500330822667206658').setName(`➥ Member Count ${member.guild.members.filter(m => !m.user.bot).size}`);
+});
+flix.on('voiceStateUpdate', (oldVoice, newVoice) => {
+	oldVoice.guild.channels.find(c => c.id == '500331453461299210').setName(`➥ Voice Online ${oldVoice.guild.members.filter(m => m.member.voiceChannel && !m.user.bot).size}`);
+});
+
+
 flix.on('messageDelete', message => {
 	if(message.author.bot) return;
 	if(message.channel.type === 'dm') return;
