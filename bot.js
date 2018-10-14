@@ -1439,19 +1439,6 @@ flix.on('guildMemberUpdate', (oldMember, newMember) => {
 		logChannel.send(newOwner);
 	}
 });
-flix.on('guildMemberAdd', member => {
-	if(datediff(parseDate(moment(member.user.createdTimestamp).format('l')), parseDate(moment().format('l'))) < 1) {
-		member.guild.member(member).ban({ reason: 'Fake account.' })
-		member.guild.channels.find(c => c.id === '473143014332694528').send(`:white_check_mark: | <@${member.id}> Successfully banned. Reason: \`\`Fake account.\`\``);
-	}
-});
-function parseDate(str) {
-	var mdy = str.split('/');
-	return new Date(mdy[2], mdy[0]-1, mdy[1]);
-};
-function datediff(first, second) {
-	return Math.round((second-first)/(1000*60*60*24));
-};
 
 
 // Voice Logs
