@@ -61,7 +61,6 @@ flix.on('ready', () => {
 });
 
 flix.on('message', async function(message) {
-	if(message.author.bot) return;
 	if(message.channel.type === 'dm') return;
 	
 	var command = message.content.toLowerCase().split(" ")[0];
@@ -104,6 +103,8 @@ flix.on('message', async function(message) {
 			message.delete();
 		}
 	}
+	
+	if(message.author.bot) return;
 	
 	
 	if(command == prefix + 'sug') {
