@@ -971,18 +971,4 @@ function Days(date) {
 	return days + (days == 1 ? " day" : " days") + " ago";
 }
 
-
-
-flix.on('guildMemberAdd', member => {
-	flix.channels.find(c => c.id == '500330822667206658').setName(`● Members Count: [${member.guild.members.filter(m => !m.user.bot).size}]`);
-});
-flix.on('guildMemberRemove', member => {
-	flix.channels.find(c => c.id == '500330822667206658').setName(`● Members Count: [${member.guild.members.filter(m => !m.user.bot).size}]`);
-});
-flix.on('voiceStateUpdate', (oldVoice, newVoice) => {
-	flix.channels.find(c => c.id == '500331453461299210').setName(`● Voice Online: [${oldVoice.guild.members.filter(m => m.voiceChannel && !m.user.bot).size}]`);
-});
-
-
-
 flix.login(process.env.BOT_TOKEN);
