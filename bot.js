@@ -631,9 +631,11 @@ flix.on('message', async function(message) {
 						msg.delete();
 						message.channel.send(`:timer: | Now you must wait some time to delete from **${message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).size}** Humans the role **${getRole.name}** ...`).then(message1 => {
 							message.guild.members.filter(m => message.guild.member(m).roles.has(getRole.id) && !m.user.bot).forEach(async m => {
-								message.guild.member(m).removeRole(getRole.id)
-								await message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Humans** .`);
+								message.guild.member(m).removeRole(getRole.id);
 							});
+							setTimeout(() => {
+								message1.edit(`:white_check_mark: | <@${message.author.id}> Successfully remove the role **${getRole.name}** From all **Humans** .`);
+							}, 15000);
 						});
 					});
 					dontRemove.on('collect', r => {
