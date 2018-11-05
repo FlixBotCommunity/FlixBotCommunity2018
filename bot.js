@@ -964,6 +964,32 @@ flix.on('message', async function(message) {
 		}
 	}
 });
+
+flix.on('guildMemberUpdate', (oM, nM) => {
+	if(oM.roles.size < nM.roles.size) {
+		let role = nM.roles.filter(r => !oM.roles.has(r.id)).first();
+		let thxUs = new Discord.RichEmbed()
+		.setAuthor(oM.guild.name, oM.guild.iconURL)
+		.setColor('GREEN')
+		.setThumbnail(oM.guild.iconURL)
+		.setDescription(`مرحبا <@${oM.id}> ..\nنشكرك لوثوقك باستضافتنا والشراء منها!\nاذا كان عندك مشكله بمنتجك الرجاء التوجه الى الدعم الفني .\n\nلا تنسى ان تقيمنا بروم\n<#${flix.channels.get('462816384083034114').id}>\nلنرفع من مستوى الاستضافه .. وشكرا :heart:`)
+		.setTimestamp()
+		.setFooter(oM.user.tag, oM.user.avatarURL);
+		let err = new Discord.RichEmbed()
+		.setAuthor(oM.guild.name, oM.guild.iconURL)
+		.setColor('RED')
+		.setDescription(`<@${oM.id}> مقفل خاصه ..`)
+		.setTimestamp()
+		.setFooter(oM.user.tag, oM.user.avatarURL);
+		if(role.name == '• Client' || role.name == '• Special Client') {
+			if(oM.user.bot) return;
+			oM.send(thxUs).catch(err => {
+				oM.guild.members.get(oM.guild.owner.id).send(err);
+			});
+		}
+	}
+});
+
 function Days(date) {
 	let now = new Date();
 	let diff = now.getTime() - date.getTime();
