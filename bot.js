@@ -99,10 +99,8 @@ flix.on('message', async function(message) {
 	
 	
 	if(message.channel.id === '495499134669684746') {
-		if(!message.content.startsWith(prefix + 'verify')) {
-			if(message.author.id !== flix.user.id) {
-				message.delete();
-			}
+		if(message.author.id !== flix.user.id) {
+			message.delete().catch(err => return);
 		}
 	}
 	
