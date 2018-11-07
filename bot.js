@@ -979,7 +979,7 @@ flix.on('guildMemberUpdate', (oM, nM) => {
 		.setDescription(`<@${oM.id}> مقفل خاصه ..`)
 		.setTimestamp()
 		.setFooter(oM.user.tag, oM.user.avatarURL);
-		if(role.name == '• Client' || role.name == '• Special Client') {
+		if(role.name == 'Client' || role.name == 'Special Client') {
 			if(oM.user.bot) return;
 			oM.send(thxUs).catch(err => {
 				oM.guild.members.get(oM.guild.owner.id).send(err);
