@@ -74,15 +74,15 @@ flix.on('message', async function(message) {
 		var numbers2 = ['4857', '5363', '8249', '5367', '1317', '5386', '4536', '0683', '3353', '2467', '2462', '5424', '6284', '8274', '4688', '8278', '2874', '8927', '1356', '8927', '2764', '7653', '5842', '4483', '2579', '6326', '2562', '4762', '1794', '0984', '2874', '8234', '7265', '7644', '7442', '0145', '2758', '2785', '8725', '8258', '8975', '8624', '2785', '2775', '9835'];
 		
 		if(message.channel.id !== '495499134669684746') return;
-		if(message.guild.member(message.author).roles.has(flixRole.id)) return message.delete();
+		if(message.member.roles.has(flixRole.id)) return message.delete();
 		if(cdv.has(message.author.id)) return message.delete();
 		
 		var x = Math.floor(Math.random() * numbers.length);
 		
 		cdv.add(message.author.id);
 		message.delete();
-		message.channel.send(`:robot: | <@${message.author.id}> الرجاء قم بكتابة الرقم التالي **${numbers[x]}** معك 10 ثواني قبل الالغاء`).then(msg => {
-			var filter = message.channel.awaitMessages(msgs => msgs.author.id === message.author.id && msgs.content == numbers2[x], { max: 1, time: 10000, errors: ['time'] });
+		message.channel.send(`:robot: | <@${message.author.id}> الرجاء قم بكتابة الرقم التالي **${numbers[x]}** معك 15 ثواني قبل الالغاء`).then(msg => {
+			var filter = message.channel.awaitMessages(msgs => msgs.author.id === message.author.id && msgs.content == numbers2[x], { max: 1, time: 15000, errors: ['time'] });
 			filter.catch(err => {
 				cdv.delete(message.author.id);
 				msg.delete();
@@ -92,13 +92,13 @@ flix.on('message', async function(message) {
 				cdv.delete(message.author.id);
 				msg.delete();
 				message.guild.member(message.author).addRole(flixRole.id);
-				message.author.send(':white_check_mark: | Successfully verifed your account.');
+				message.author.send(':white_check_mark: | Successfully **Verifed** Your account.');
 			});
 		});
 	}
 	
 	
-	if(message.channel.id === '495499134669684746') {
+	if(message.channel.id == '495499134669684746') {
 		if(message.author.id !== flix.user.id) {
 			message.delete();
 		}
@@ -109,7 +109,7 @@ flix.on('message', async function(message) {
 	
 	if(command == prefix + 'sug') {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
-		var sugChannel = message.guild.channels.find(c => c.id === '485880203827085322');
+		var sugChannel = message.guild.channels.find(c => c.id == '485880203827085322');
 		
 		if(!sugChannel) return message.channel.send(':no_entry: | لا يوجد روم للاقتراحات');
 		if(cds.has(message.author.id)) return message.channel.send(`:no_entry: | <@${message.author.id}> يجب عليك الانتظار 5 دقائق`);
@@ -289,9 +289,7 @@ flix.on('message', async function(message) {
 		if(args[1] && isNaN(args[1])) return message.channel.send(`:no_entry: | The tag must be a number. Please type like this: \`\`${prefix}discrim 0001\`\``);
 		if(args[1] && args[1].length !== 4) return message.channel.send(`:no_entry: | I cant find this tag. Please type like this: \`\`${prefix}discrim 0001\`\``);
 		if(membersTag.size < 1) return message.channel.send(`:no_entry: | I cant find any user have this tag \`\`${Tag}\`\``);
-		
 		var number = 1;
-		
 		let discrim = new Discord.RichEmbed()
 		.setTitle(`:white_check_mark: **${membersTag.size}** Members have this tag **${Tag}**`)
 		.setColor('GREEN')
@@ -306,20 +304,15 @@ flix.on('message', async function(message) {
 	if(command == prefix + 'bc') {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
 		if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(':no_entry: | You dont have **ADMINISTRATOR** Permission!');
-		
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
-		
 		let bcCommand = new Discord.RichEmbed()
 		.setTitle(':white_check_mark: **BroadCast Command.**')
 		.setColor('GREEN')
 		.setDescription(`**\n${prefix}bc <MESSAGE>**\n➥ \`\`Send for all members the message.\`\`\n\n**${prefix}bc <ROLE> <MESSAGE>**\n➥ \`\`Send the message to members have the role selected.\`\`\n\n**${prefix}bc admins <MESSAGE>**\n➥ \`\`Send the message to members have ADMINISTRATOR permission.\`\`\n\n**${prefix}bc members <MESSAGE>**\n➥ \`\`Send the message to members not have ADMINISTRATOR permission.\`\``)
 		.setTimestamp()
 		.setFooter(message.author.tag, message.author.avatarURL)
-		
 		if(!args[1]) return message.channel.send(bcCommand);
-		
 		var getRole = message.mentions.roles.first() || message.guild.roles.find(r => r.id === args[1]) || message.guild.roles.find(r => r.name.toLowerCase().includes(args[1]));
-		
 		if(args[1] === 'admins' || args[1] === 'members' || getRole) {
 			var argsM = message.content.split(' ').slice(2).join(' ');
 		}else if(args[1] !== 'admins' || args[1] !== 'members' || !getRole) {
@@ -897,7 +890,6 @@ flix.on('message', async function(message) {
 	
    if(command == prefix + 'info-member') {
 	if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
-	   
         if(!args[1]) return message.channel.send(`:no_entry: | Please enter the member number. \`\`If you want to know how to get the member number please type ${prefix}members (page)\`\``);
         if(isNaN(args[1])) return message.channel.send(`:no_entry: | Please enter the member number. \`\`If you want to know how to get the member number please type ${prefix}members (page)\`\``);
         if(args[1] > message.guild.members.size) return message.channel.send(`:no_entry: | I couldn\'t find the user. Please selecte number from 1 to ${message.guild.members.size}`);
