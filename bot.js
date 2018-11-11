@@ -55,7 +55,7 @@ flix.on('ready', () => {
 			m.addRole(flix.guilds.find(g => g.id === '428690920246870016').roles.find(r => r.name === 'Flix').id);
 		});
 		flix.guilds.find(g => g.id === '428690920246870016').members.filter(m => !m.user.username.startsWith('!- Flix |') && m.roles.has(flix.guilds.find(g => g.id === '428690920246870016').roles.find(r => r.name === '• Flix').id)).forEach(m => {
-			m.removeRole(flix.guilds.find(g => g.id === '428690920246870016').roles.find(r => r.name === '• Flix').id);
+			m.removeRole(flix.guilds.find(g => g.id === '428690920246870016').roles.find(r => r.name === 'Flix').id);
 		});
 	}, 15000);
 });
