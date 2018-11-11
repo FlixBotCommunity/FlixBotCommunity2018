@@ -96,16 +96,12 @@ flix.on('message', async function(message) {
 			});
 		});
 	}
-	
-	
 	if(message.channel.id == '495499134669684746') {
 		if(message.author.id !== flix.user.id) {
 			message.delete();
 		}
 	}
-	
 	if(message.author.bot) return;
-	
 	
 	if(command == prefix + 'sug') {
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return;
@@ -115,37 +111,27 @@ flix.on('message', async function(message) {
 		if(cds.has(message.author.id)) return message.channel.send(`:no_entry: | <@${message.author.id}> يجب عليك الانتظار 5 دقائق`);
 		if(!args1) return message.channel.send(`**➥ Useage:** ${prefix}sug <SUG>`);
 		if(args1.length > 1000) return message.channel.send(`:no_entry: | اقتراحك **${args1.length}** حرف! جرب بأقل من **1000** حرف`).then(msg => message.delete());
-		
 		message.delete();
-		
 		var sugS = new Discord.RichEmbed()
 		.setTitle('الاقتراح:')
 		.setColor('RED')
 		.setDescription(`**${args1}**`)
 		.setFooter('NOTE: اذا كان الاقتراح طلب لحساب او لعب بالامر سوف تحاسب من قبل الادارة', message.author.avatarURL)
-		
 		message.channel.send(sugS).then(msgSu2 => {
 			message.channel.send('__هل أنت متأكد أنك تريد ارسال اقتراحك الى روم الاقتراحات؟__').then(msgSu => {
 				msgSu.react('✅').then(() => msgSu.react('❎'))
-				
 				let yes = (reaction, user) => reaction.emoji.name === '✅'  && user.id === message.author.id;
 				let no = (reaction, user) => reaction.emoji.name === '❎' && user.id === message.author.id;
-				
 				let yesSend = msgSu.createReactionCollector(yes);
 				let dontSend = msgSu.createReactionCollector(no);
-				
 				yesSend.on('collect', r => {
 					cds.add(message.author.id);
-					
 					var sugD = new Discord.RichEmbed()
 					.setColor('GREEN')
 					.setDescription(`:white_check_mark: | <@${message.author.id}> **تم ارسال اقتراحك بنجاح!**`)
-					
 					message.channel.send(sugD).then(msg => msg.delete(5000));
-					
 					msgSu.delete();
 					msgSu2.delete();
-					
 					var newSug = new Discord.RichEmbed()
 					.setTitle(`**:bell: اقــــــتـــراح جـــــديــــــد :bell:**`)
 					.setThumbnail(message.author.avatarURL)
@@ -153,7 +139,6 @@ flix.on('message', async function(message) {
 					.setDescription(`**➥ From:**\n<@${message.author.id}>\n\n**➥ Suggestion:**\n${args1}`)
 					.setTimestamp()
 					.setFooter(message.author.tag, message.author.avatarURL)
-					
 					sugChannel.send(newSug);
 				});
 				dontSend.on('collect', r => {
@@ -171,11 +156,9 @@ flix.on('message', async function(message) {
 	
 	if(command == prefix + 'server') {
 		if(!message.guild.member(flix.user).hasPermission('ADMINISTRATOR')) return;
-		
 		var botCount = message.guild.members.filter(m => m.user.bot).size;
 		var memberCount = message.guild.memberCount - botCount;
 		var memberOnline = message.guild.members.filter(m=>m.presence.status == 'online').size + message.guild.members.filter(m=>m.presence.status == 'idle').size + message.guild.members.filter(m=>m.presence.status == 'dnd').size;
-
 		if(!message.guild.member(flix.user).hasPermission('EMBED_LINKS')) return message.channel.send(':no_entry: | I dont have **EMBED_LINKS** Permission!');
 		if(!message.guild.member(flix.user).hasPermission('VIEW_AUDIT_LOG')) return message.channel.send(':no_entry: | I dont have **VIEW_AUDIT_LOG** Permission!');
 		message.guild.fetchBans().then(bans => {
