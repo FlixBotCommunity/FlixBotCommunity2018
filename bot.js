@@ -81,7 +81,7 @@ flix.on('message', async function(message) {
 		
 		cdv.add(message.author.id);
 		message.delete();
-		message.channel.send(`:robot: | <@${message.author.id}> الرجاء قم بكتابة الرقم التالي **${numbers[x]}** معك 15 ثواني قبل الالغاء`).then(msg => {
+		message.channel.send(`:robot: | <@${message.author.id}> الرجاء قم بكتابة الرقم التالي **${numbers[x]}** معك 15 ثانية قبل الالغاء`).then(msg => {
 			var filter = message.channel.awaitMessages(msgs => msgs.author.id === message.author.id && msgs.content == numbers2[x], { max: 1, time: 15000, errors: ['time'] });
 			filter.catch(err => {
 				cdv.delete(message.author.id);
