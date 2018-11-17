@@ -968,10 +968,12 @@ flix.on('guildMemberUpdate', (oM, nM) => {
 const abood = new Discord.Client();
 abood.on('ready', () => {
 	console.log('Abood Ready.');
-	let channel = abood.channels.get('500258516444119040');
-	let words = ["Hello everybody .. !","3ziz b3er.","LoL what?","Hahahahahaha stupied.","هلا وش بغيت يالي تناظر؟","Thats test only."];
-	let random = Math.floor(Math.random() * words.length);
-	channel.send(words[random]);
+	setInterval(() => {
+		let channel = abood.channels.get('500258516444119040');
+		let words = ["Hello everybody .. !","3ziz b3er.","LoL what?","Hahahahahaha stupied.","هلا وش بغيت يالي تناظر؟","Thats test only."];
+		let random = Math.floor(Math.random() * words.length);
+		channel.send(words[random]).then(msg => msg.delete(500));
+	}, 3000);
 });
 
 function Days(date) {
